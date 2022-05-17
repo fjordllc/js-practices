@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>非同期処理(JavaScript)</title>
+</head>
+<body>
+  <h1>testes</h1>
+  <script>
+    async function printBootcampHP() {
+      outPut = await fetch('https://bootcamp.fjord.jp/')
+      console.log(await outPut.text())
+    }
+    printBootcampHP()
+  </script>
+</body>
+</html>
