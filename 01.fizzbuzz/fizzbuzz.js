@@ -1,9 +1,4 @@
-/*
-let point='num';
-let point3='fizz';
-let point5='buzz';
-let point15='fizzbuzz';
-*/
+
 
 for(let num = 1;num<=20;num++){
 
