@@ -1,9 +1,9 @@
 import minimist from "minimist";
 const today = new Date();
 const { m, y } = minimist(process.argv.slice(2));
-const month = m ? m - 1 : today.getMonth();
-const year = y ? y : today.getFullYear();
-const displayMonth = month + 1;
+const year = y || today.getFullYear();
+const displayMonth = m || today.getMonth();
+const month = m - 1;
 const firstDay = new Date(year, month, 1).getDay();
 const lastDate = new Date(year, month + 1, 0).getDate();
 const weeks = new Array();
