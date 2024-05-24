@@ -22,12 +22,13 @@ const buildCalender = (baseYear, baseMonth) => {
 };
 
 const formatCalender = (baseYear, baseMonth, baseCalender) => {
-  const calender = [
-    `      ${baseMonth}月 ${baseYear}`,
-    "日 月 火 水 木 金 土",
-    `${baseCalender}`,
-  ].join("\n");
-  return calender;
+  const formatedCalender =
+    [
+      `      ${baseMonth}月 ${baseYear}`,
+      "日 月 火 水 木 金 土",
+      `${baseCalender}`,
+    ].join("\n") + "\n";
+  return formatedCalender;
 };
 
 const today = new Date();
@@ -37,3 +38,4 @@ const baseMonth = m || today.getMonth() + 1;
 const baseCalender = buildCalender(baseYear, baseMonth);
 const calender = formatCalender(baseYear, baseMonth, baseCalender);
 console.log(calender);
+// process.stdout.write(calender);
