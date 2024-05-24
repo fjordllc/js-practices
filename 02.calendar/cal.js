@@ -5,11 +5,10 @@ const buildCalender = (baseYear, baseMonth) => {
   const firstDay = new Date(baseYear, month, 1).getDay();
   const lastDate = new Date(baseYear, month + 1, 0).getDate();
   const weeks = new Array();
-  let firstWeek = new String();
+  let week = new String();
   if (firstDay !== 0) {
-    firstWeek = firstWeek.concat("   ".repeat(firstDay));
+    week = week.concat("   ".repeat(firstDay));
   }
-  let week = firstWeek;
   for (let day = 1, weekday = firstDay; day <= lastDate; day++, weekday++) {
     week = week.concat(String(day).padStart(3));
     if (day === lastDate || weekday === 6) {
