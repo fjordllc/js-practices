@@ -38,4 +38,3 @@ const baseMonth = m || today.getMonth() + 1;
 const baseCalender = buildCalender(baseYear, baseMonth);
 const calender = formatCalender(baseYear, baseMonth, baseCalender);
 console.log(calender);
-// process.stdout.write(calender);
