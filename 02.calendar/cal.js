@@ -11,24 +11,18 @@ const weeks = new Array();
 
 let firstWeek = "";
 if (firstDay !== 0) {
-  const padding = "  " + "   ".repeat(firstDay - 1);
+  const padding = "   ".repeat(firstDay);
   firstWeek = firstWeek.concat(padding);
 }
-
 let week = firstWeek;
 for (let day = 1, weekday = firstDay; day <= lastDate; day++, weekday++) {
-  let numberWidth = 3;
-  if (weekday === 0) {
-    numberWidth = 2;
-  }
-  week = week.concat(String(day).padStart(numberWidth));
+  week = week.concat(String(day).padStart(3));
   if (day === lastDate || weekday === 6) {
-    weeks.push(week);
+    weeks.push(week.substring(1));
     weekday = -1;
     week = "";
   }
 }
-
 const calender = weeks.join("\n");
 const formatCalender = [
   `       ${baseMonth}月 ${baseYear}`,
