@@ -27,7 +27,7 @@ const formatCalender = (baseYear, baseMonth, baseCalender) => {
     [
       `      ${baseMonth}月 ${baseYear}`,
       "日 月 火 水 木 金 土",
-      `${baseCalender}`,
+      baseCalender,
     ].join("\n") + "\n";
   return formattedCalender;
 };
