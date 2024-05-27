@@ -6,8 +6,8 @@ const buildCalender = (baseYear, baseMonth) => {
   const month = baseMonth - 1;
   const firstDay = new Date(baseYear, month, 1).getDay();
   const lastDate = new Date(baseYear, month + 1, 0).getDate();
-  const weeks = new Array();
-  let week = new String();
+  const weeks = [];
+  let week = "";
   if (firstDay !== 0) {
     week = week.concat("   ".repeat(firstDay));
   }
