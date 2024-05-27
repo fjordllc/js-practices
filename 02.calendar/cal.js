@@ -34,8 +34,8 @@ const formatCalender = (baseYear, baseMonth, baseCalender) => {
 
 const today = new Date();
 const { m, y } = minimist(process.argv.slice(2));
-const baseYear = y || today.getFullYear();
-const baseMonth = m || today.getMonth() + 1;
+const baseYear = y ?? today.getFullYear();
+const baseMonth = m ?? today.getMonth() + 1;
 const baseCalender = buildCalender(baseYear, baseMonth);
 const calender = formatCalender(baseYear, baseMonth, baseCalender);
 console.log(calender);
