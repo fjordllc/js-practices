@@ -21,13 +21,13 @@ const buildCalender = (baseYear, baseMonth) => {
 };
 
 const formatCalender = (baseYear, baseMonth, baseCalender) => {
-  const formatedCalender =
+  const formattedCalender =
     [
       `      ${baseMonth}月 ${baseYear}`,
       "日 月 火 水 木 金 土",
       `${baseCalender}`,
     ].join("\n") + "\n";
-  return formatedCalender;
+  return formattedCalender;
 };
 
 const today = new Date();
