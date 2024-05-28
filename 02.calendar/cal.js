@@ -2,14 +2,14 @@
 
 import minimist from "minimist";
 
-const buildCalendar = (referenceYear, referenceMonth) => {
+const buildWeeks = (referenceYear, referenceMonth) => {
   const firstDate = new Date(referenceYear, referenceMonth, 1);
   const lastDate = new Date(referenceYear, referenceMonth + 1, 0);
   const days = [...Array(lastDate.getDate())].map((_, i) => i + 1);
   const firstWeekBlankDays = Array(firstDate.getDay()).fill("");
   days.unshift(...firstWeekBlankDays);
-  const weeklyCalendar = sliceByNumber(days, 7);
-  return weeklyCalendar;
+  const weeks = sliceByNumber(days, 7);
+  return weeks;
 };
 
 const sliceByNumber = (array, number) => {
@@ -19,14 +19,15 @@ const sliceByNumber = (array, number) => {
     .map((_, i) => array.slice(i * number, (i + 1) * number));
 };
 
-const formatCalendar = (referenceYear, referenceMonth, weeklyCalendar) => {
-  const CalendarWithPadding = weeklyCalendar.map((week) =>
+const formatCalendar = (referenceYear, referenceMonth, weeks) => {
+  const weeksWithArrangedDays = weeks.map((week) =>
     week.map((day) => String(day).padStart(3)),
   );
-  //抽象度が高いので変数名を変更する(weekを文字列に変換して連結して、先頭を１文字削除)
-  const arrangedCalendar = CalendarWithPadding.map(
-    (week) => week.join("").substring(1), //padStart(3)時に追加された日曜行の左端の余分な半角空白を、substring(1)で削除
-  ).join("\n");
+  const arrangedCalendar = weeksWithArrangedDays
+    .map(
+      (week) => week.join("").substring(1), //padStart(3)時に追加された日曜行の左端の余分な半角空白を、substring(1)で削除
+    )
+    .join("\n");
   const displayMonth = referenceMonth + 1;
   const formattedCalendar =
     [
@@ -46,12 +47,8 @@ const referenceMonth =
   typeof inputMonth === "number" && 1 <= inputMonth <= 12
     ? inputMonth - 1
     : today.getMonth();
-const referenceCalendar = buildCalendar(referenceYear, referenceMonth);
-const calendar = formatCalendar(
-  referenceYear,
-  referenceMonth,
-  referenceCalendar,
-);
+const weeks = buildWeeks(referenceYear, referenceMonth);
+const calendar = formatCalendar(referenceYear, referenceMonth, weeks);
 console.log(calendar);
 
 // const buildCalendar = (baseYear, baseMonth) => {
