@@ -20,12 +20,20 @@ const sliceByNumber = (array, number) => {
 };
 
 const formatCalendar = (baseYear, baseMonth, weeklyCalendar) => {
+  const CalendarWithPadding = weeklyCalendar.map((week) =>
+    week.map((day) => String(day).padStart(3)),
+  );
+
+  //抽象度が高いので変数名を変更する(weekを文字列に変換して連結して、先頭を１文字削除)
+  const arrangedCalendar = CalendarWithPadding.map(
+    (week) => week.join("").substring(1), //padStart(3)時に追加された日曜行の左端の余分な半角空白を、substring(1)で削除
+  ).join("\n");
   const displayMonth = baseMonth + 1;
   const formattedCalendar =
     [
       `      ${displayMonth}月 ${baseYear}`,
       "日 月 火 水 木 金 土",
-      weeklyCalendar,
+      arrangedCalendar,
     ].join("\n") + "\n";
   return formattedCalendar;
 };
