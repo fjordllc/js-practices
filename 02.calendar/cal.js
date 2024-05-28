@@ -6,9 +6,9 @@ const buildCalendar = (baseYear, baseMonth) => {
   const firstDate = new Date(baseYear, baseMonth, 1);
   const lastDate = new Date(baseYear, baseMonth + 1, 0);
   const rawCalendarData = [...Array(lastDate.getDate())].map((_, i) => i + 1);
-  rawCalendarData.unshift(...Array(firstDate.getDay()));
+  const firstWeekBlankDays = Array(firstDate.getDay()).fill("");
+  rawCalendarData.unshift(...firstWeekBlankDays);
   const weeklyCalendar = sliceByNumber(rawCalendarData, 7);
-  console.log(weeklyCalendar);
   return weeklyCalendar;
 };
 
@@ -19,13 +19,13 @@ const sliceByNumber = (array, number) => {
     .map((_, i) => array.slice(i * number, (i + 1) * number));
 };
 
-const formatCalendar = (baseYear, baseMonth, baseCalendar) => {
+const formatCalendar = (baseYear, baseMonth, weeklyCalendar) => {
   const displayMonth = baseMonth + 1;
   const formattedCalendar =
     [
       `      ${displayMonth}月 ${baseYear}`,
       "日 月 火 水 木 金 土",
-      baseCalendar,
+      weeklyCalendar,
     ].join("\n") + "\n";
   return formattedCalendar;
 };
