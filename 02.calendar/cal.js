@@ -8,15 +8,11 @@ const buildWeeks = (referenceYear, referenceMonth) => {
   const days = [...Array(lastDate.getDate())].map((_, i) => i + 1);
   const firstWeekBlankDays = Array(firstDate.getDay()).fill("");
   days.unshift(...firstWeekBlankDays);
-  const weeks = sliceByNumber(days, 7);
+  const rowCount = Math.ceil(days.length / 7);
+  const weeks = Array(rowCount)
+    .fill("")
+    .map((_, i) => days.slice(i * 7, (i + 1) * 7));
   return weeks;
-};
-
-const sliceByNumber = (array, number) => {
-  const length = Math.ceil(array.length / number);
-  return Array(length)
-    .fill()
-    .map((_, i) => array.slice(i * number, (i + 1) * number));
 };
 
 const formatCalendar = (referenceYear, referenceMonth, weeks) => {
