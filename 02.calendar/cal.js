@@ -16,10 +16,10 @@ const buildWeeks = (referenceYear, referenceMonth) => {
 };
 
 const formatCalendar = (referenceYear, referenceMonth, weeks) => {
-  const weeksWithArrangedDays = weeks.map((week) =>
+  const weeksWithSpaces = weeks.map((week) =>
     week.map((day) => String(day).padStart(3)),
   );
-  const arrangedCalendar = weeksWithArrangedDays
+  const arrangedCalendar = weeksWithSpaces
     .map(
       (week) => week.join("").substring(1), //padStart(3)時に追加された日曜行の左端の余分な半角空白を、substring(1)で削除
     )
