@@ -2,13 +2,13 @@
 
 import minimist from "minimist";
 
-const buildCalendar = (baseYear, baseMonth) => {
-  const firstDate = new Date(baseYear, baseMonth, 1);
-  const lastDate = new Date(baseYear, baseMonth + 1, 0);
-  const rawCalendarData = [...Array(lastDate.getDate())].map((_, i) => i + 1);
+const buildCalendar = (referenceYear, referenceMonth) => {
+  const firstDate = new Date(referenceYear, referenceMonth, 1);
+  const lastDate = new Date(referenceYear, referenceMonth + 1, 0);
+  const days = [...Array(lastDate.getDate())].map((_, i) => i + 1);
   const firstWeekBlankDays = Array(firstDate.getDay()).fill("");
-  rawCalendarData.unshift(...firstWeekBlankDays);
-  const weeklyCalendar = sliceByNumber(rawCalendarData, 7);
+  days.unshift(...firstWeekBlankDays);
+  const weeklyCalendar = sliceByNumber(days, 7);
   return weeklyCalendar;
 };
 
@@ -19,19 +19,18 @@ const sliceByNumber = (array, number) => {
     .map((_, i) => array.slice(i * number, (i + 1) * number));
 };
 
-const formatCalendar = (baseYear, baseMonth, weeklyCalendar) => {
+const formatCalendar = (referenceYear, referenceMonth, weeklyCalendar) => {
   const CalendarWithPadding = weeklyCalendar.map((week) =>
     week.map((day) => String(day).padStart(3)),
   );
-
   //抽象度が高いので変数名を変更する(weekを文字列に変換して連結して、先頭を１文字削除)
   const arrangedCalendar = CalendarWithPadding.map(
     (week) => week.join("").substring(1), //padStart(3)時に追加された日曜行の左端の余分な半角空白を、substring(1)で削除
   ).join("\n");
-  const displayMonth = baseMonth + 1;
+  const displayMonth = referenceMonth + 1;
   const formattedCalendar =
     [
-      `      ${displayMonth}月 ${baseYear}`,
+      `      ${displayMonth}月 ${referenceYear}`,
       "日 月 火 水 木 金 土",
       arrangedCalendar,
     ].join("\n") + "\n";
@@ -42,13 +41,17 @@ const today = new Date();
 const { y, m } = minimist(process.argv.slice(2));
 const inputYear = y;
 const inputMonth = m;
-const baseYear = inputYear ?? today.getFullYear();
-const baseMonth =
+const referenceYear = inputYear ?? today.getFullYear();
+const referenceMonth =
   typeof inputMonth === "number" && 1 <= inputMonth <= 12
     ? inputMonth - 1
     : today.getMonth();
-const baseCalendar = buildCalendar(baseYear, baseMonth);
-const calendar = formatCalendar(baseYear, baseMonth, baseCalendar);
+const referenceCalendar = buildCalendar(referenceYear, referenceMonth);
+const calendar = formatCalendar(
+  referenceYear,
+  referenceMonth,
+  referenceCalendar,
+);
 console.log(calendar);
 
 // const buildCalendar = (baseYear, baseMonth) => {
