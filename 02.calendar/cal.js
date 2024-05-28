@@ -14,7 +14,7 @@ const buildCalendar = (referenceYear, referenceMonth) => {
 
 const sliceByNumber = (array, number) => {
   const length = Math.ceil(array.length / number);
-  return new Array(length)
+  return Array(length)
     .fill()
     .map((_, i) => array.slice(i * number, (i + 1) * number));
 };
@@ -37,10 +37,10 @@ const formatCalendar = (referenceYear, referenceMonth, weeklyCalendar) => {
   return formattedCalendar;
 };
 
-const today = new Date();
 const { y, m } = minimist(process.argv.slice(2));
 const inputYear = y;
 const inputMonth = m;
+const today = new Date();
 const referenceYear = inputYear ?? today.getFullYear();
 const referenceMonth =
   typeof inputMonth === "number" && 1 <= inputMonth <= 12
