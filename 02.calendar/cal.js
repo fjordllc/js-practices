@@ -15,23 +15,23 @@ const buildWeeks = (referenceYear, referenceMonth) => {
   return weeks;
 };
 
-const formatCalendar = (referenceYear, referenceMonth, weeks) => {
+const renderCalendar = (referenceYear, referenceMonth, weeks) => {
   const weeksWithSpaces = weeks.map((week) =>
     week.map((day) => String(day).padStart(3)),
   );
-  const arrangedCalendar = weeksWithSpaces
+  const formattedCalendar = weeksWithSpaces
     .map(
       (week) => week.join("").substring(1), //padStart(3)時に追加された日曜行の左端の余分な半角空白を、substring(1)で削除
     )
     .join("\n");
   const displayMonth = referenceMonth + 1;
-  const formattedCalendar =
+  const display =
     [
       `      ${displayMonth}月 ${referenceYear}`,
       "日 月 火 水 木 金 土",
-      arrangedCalendar,
+      formattedCalendar,
     ].join("\n") + "\n";
-  return formattedCalendar;
+  return display;
 };
 
 const { y, m } = minimist(process.argv.slice(2));
@@ -44,5 +44,5 @@ const referenceMonth =
     ? inputMonth - 1
     : today.getMonth();
 const weeks = buildWeeks(referenceYear, referenceMonth);
-const calendar = formatCalendar(referenceYear, referenceMonth, weeks);
+const calendar = renderCalendar(referenceYear, referenceMonth, weeks);
 console.log(calendar);
