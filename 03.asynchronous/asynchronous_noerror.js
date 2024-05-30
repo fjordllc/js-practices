@@ -13,30 +13,33 @@ function callback() {
         }
         console.log("Table created");
 
-        db.run("INSERT INTO books (title) VALUES ('あいうえお')", (err) => {
-          if (err) {
-            console.error("Insert error", err);
-            return;
-          }
-          console.log("Insert book title with ID", this.lastID);
-
-          db.all("SELECT * FROM books", (err, rows) => {
+        db.run(
+          "INSERT INTO books (title) VALUES ('あいうえお')",
+          function (err) {
             if (err) {
-              console.error("Select error", err);
+              console.error("Insert error", err);
               return;
             }
-            console.log("Rows :", rows);
+            console.log("Insert book title with ID", this.lastID);
 
-            db.run("DROP TABLE books", (err) => {
+            db.all("SELECT * FROM books", (err, rows) => {
               if (err) {
-                console.log("Drop error", err);
+                console.error("Select error", err);
                 return;
               }
-              console.log("Table dropped");
-              db.close();
+              console.log("Rows :", rows);
+
+              db.run("DROP TABLE books", (err) => {
+                if (err) {
+                  console.log("Drop error", err);
+                  return;
+                }
+                console.log("Table dropped");
+                db.close();
+              });
             });
-          });
-        });
+          },
+        );
       },
     );
   });
