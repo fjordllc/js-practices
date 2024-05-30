@@ -22,12 +22,12 @@ function callback() {
             }
             console.log("Insert book title with ID", this.lastID);
 
-            db.all("SELECT * FROM books", (err, row) => {
+            db.all("SELECT * FROM books", (err, rows) => {
               if (err) {
                 console.error("Select error", err);
                 return;
               }
-              console.log("Rows :", row);
+              console.log("Rows :", rows);
 
               db.run("DROP TABLE books", (err) => {
                 if (err) {
