@@ -42,7 +42,7 @@ const referenceYear = Number.isSafeInteger(inputYear)
   ? inputYear
   : today.getFullYear();
 const referenceMonth =
-  Number.isSafeInteger(inputMonth) && 1 <= inputMonth <= 12
+  Number.isSafeInteger(inputMonth) && 1 <= inputMonth && inputMonth <= 12
     ? inputMonth - 1
     : today.getMonth();
 const weeks = buildWeeks(referenceYear, referenceMonth);
