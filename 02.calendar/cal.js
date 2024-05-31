@@ -38,9 +38,11 @@ const { y, m } = minimist(process.argv.slice(2));
 const inputYear = y;
 const inputMonth = m;
 const today = new Date();
-const referenceYear = inputYear ?? today.getFullYear();
+const referenceYear = Number.isSafeInteger(inputYear)
+  ? inputYear
+  : today.getFullYear();
 const referenceMonth =
-  typeof inputMonth === "number" && 1 <= inputMonth <= 12
+  Number.isSafeInteger(inputMonth) && 1 <= inputMonth <= 12
     ? inputMonth - 1
     : today.getMonth();
 const weeks = buildWeeks(referenceYear, referenceMonth);
