@@ -1,23 +1,23 @@
 #!/usr/bin/env node
 
 import minimist from "minimist";
+import _ from "lodash-es";
 
 const buildWeeks = (referenceYear, referenceMonth) => {
   const firstDate = new Date(referenceYear, referenceMonth, 1);
   const lastDate = new Date(referenceYear, referenceMonth + 1, 0);
-  const days = [...Array(lastDate.getDate())].map((_, i) => i + 1);
+
+  const days = _.range(1, lastDate.getDate() + 1).map((i) => String(i));
   const firstWeekBlankDays = Array(firstDate.getDay()).fill("");
   days.unshift(...firstWeekBlankDays);
-  const rowCount = Math.ceil(days.length / 7);
-  const weeks = Array(rowCount)
-    .fill("")
-    .map((_, i) => days.slice(i * 7, (i + 1) * 7));
+
+  const weeks = _.chunk(days, 7);
   return weeks;
 };
 
 const renderCalendar = (referenceYear, referenceMonth, weeks) => {
   const weeksWithSpaces = weeks.map((week) =>
-    week.map((day) => String(day).padStart(3)),
+    week.map((day) => day.padStart(3)),
   );
   const formattedCalendar = weeksWithSpaces
     .map(

@@ -10,6 +10,7 @@
   },
   "type": "module",
   "dependencies": {
+    "lodash-es": "^4.17.21",
     "minimist": "^1.2.8"
   }
 }
