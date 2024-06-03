@@ -35,8 +35,8 @@ const renderCalendar = (referenceYear, referenceMonth, weeks) => {
 };
 
 const { y, m } = minimist(process.argv.slice(2));
-const inputYear = y;
-const inputMonth = m;
+const inputYear = y,
+  inputMonth = m;
 const today = new Date();
 const referenceYear = Number.isSafeInteger(inputYear)
   ? inputYear
