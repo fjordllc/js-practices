@@ -1,4 +1,4 @@
-#! /usr/bin/env node
+#!/usr/bin/env node
 
 import minimist from "minimist";
 
@@ -21,7 +21,7 @@ const renderCalendar = (referenceYear, referenceMonth, weeks) => {
   );
   const formattedCalendar = weeksWithSpaces
     .map(
-      (week) => week.join("").substring(1), //padStart(3)時に追加された日曜行の左端の余分な半角空白を、substring(1)で削除
+      (week) => week.join("").substring(1), // padStart(3)時に追加された日曜行の左端の余分な半角空白を、substring(1)で削除
     )
     .join("\n");
   const displayMonth = referenceMonth + 1;
