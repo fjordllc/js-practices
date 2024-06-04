@@ -3,6 +3,50 @@
 import minimist from "minimist";
 import _ from "lodash-es";
 
+const runCalendar = () => {
+  const date = setDate();
+  if (!date) {
+    console.log(
+      "不正な入力です。年は半角自然数・月は半角1~12で入力してください。",
+    );
+    return;
+  }
+  const weeks = buildWeeks(date.year, date.month);
+  const calendar = renderCalendar(date.year, date.month, weeks);
+  console.log(calendar);
+};
+
+const setDate = () => {
+  const { y, m } = minimist(process.argv.slice(2));
+  const inputYear = y,
+    inputMonth = m;
+  const today = new Date();
+  const year = setYear(inputYear, today);
+  const month = setMonth(inputMonth, today);
+  if (!year || !month) return;
+  const baseData = { year: year, month: month };
+  return baseData;
+};
+
+const setYear = (inputYear, today) => {
+  const year = Number.isSafeInteger(inputYear)
+    ? inputYear
+    : typeof inputYear === "undefined"
+      ? today.getFullYear()
+      : undefined;
+  return year;
+};
+
+const setMonth = (inputMonth, today) => {
+  const month =
+    Number.isSafeInteger(inputMonth) && 1 <= inputMonth && inputMonth <= 12
+      ? inputMonth - 1
+      : typeof inputMonth === "undefined"
+        ? today.getMonth()
+        : undefined;
+  return month;
+};
+
 const buildWeeks = (referenceYear, referenceMonth) => {
   const firstDate = new Date(referenceYear, referenceMonth, 1);
   const lastDate = new Date(referenceYear, referenceMonth + 1, 0);
@@ -34,17 +78,4 @@ const renderCalendar = (referenceYear, referenceMonth, weeks) => {
   return display;
 };
 
-const { y, m } = minimist(process.argv.slice(2));
-const inputYear = y,
-  inputMonth = m;
-const today = new Date();
-const referenceYear = Number.isSafeInteger(inputYear)
-  ? inputYear
-  : today.getFullYear();
-const referenceMonth =
-  Number.isSafeInteger(inputMonth) && 1 <= inputMonth && inputMonth <= 12
-    ? inputMonth - 1
-    : today.getMonth();
-const weeks = buildWeeks(referenceYear, referenceMonth);
-const calendar = renderCalendar(referenceYear, referenceMonth, weeks);
-console.log(calendar);
+runCalendar();
