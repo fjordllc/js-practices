@@ -6,6 +6,7 @@ import _ from "lodash-es";
 const runCalendar = () => {
   const date = setDate();
   if (!date) {
+    // もしYearとMonthで文言を変えるなら、ここで!date.yearと!date.monthにしてそれぞれreturnさせる
     console.log(
       "不正な入力です。年は半角自然数・月は半角1~12で入力してください。",
     );
@@ -22,7 +23,7 @@ const setDate = () => {
     inputMonth = m;
   const today = new Date();
   const year = setYear(inputYear, today);
-  const month = setMonth(inputMonth, today);
+  const month = setMonth(inputMonth, today); // もしYearとMonthで文言を変えるなら、下のif文を削除する
   if (!year || !month) return;
   const baseData = { year: year, month: month };
   return baseData;
@@ -47,11 +48,11 @@ const setMonth = (inputMonth, today) => {
   return month;
 };
 
-const buildWeeks = (referenceYear, referenceMonth) => {
-  const firstDate = new Date(referenceYear, referenceMonth, 1);
-  const lastDate = new Date(referenceYear, referenceMonth + 1, 0);
+const buildWeeks = (year, month) => {
+  const firstDate = new Date(year, month, 1);
+  const lastDate = new Date(year, month + 1, 0);
 
-  const days = _.range(1, lastDate.getDate() + 1).map((i) => String(i));
+  const days = _.range(1, lastDate.getDate() + 1).map((day) => String(day));
   const firstWeekBlankDays = Array(firstDate.getDay()).fill("");
   days.unshift(...firstWeekBlankDays);
 
@@ -59,7 +60,7 @@ const buildWeeks = (referenceYear, referenceMonth) => {
   return weeks;
 };
 
-const renderCalendar = (referenceYear, referenceMonth, weeks) => {
+const renderCalendar = (year, month, weeks) => {
   const weeksWithSpaces = weeks.map((week) =>
     week.map((day) => day.padStart(3)),
   );
@@ -68,10 +69,10 @@ const renderCalendar = (referenceYear, referenceMonth, weeks) => {
       (week) => week.join("").substring(1), // padStart(3)時に追加された日曜行の左端の余分な半角空白を、substring(1)で削除
     )
     .join("\n");
-  const displayMonth = referenceMonth + 1;
+  const displayMonth = month + 1;
   const display =
     [
-      `      ${displayMonth}月 ${referenceYear}`,
+      `      ${displayMonth}月 ${year}`,
       "日 月 火 水 木 金 土",
       formattedCalendar,
     ].join("\n") + "\n";
