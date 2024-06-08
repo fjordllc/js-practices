@@ -12,7 +12,7 @@ const runCalendar = () => {
     return;
   }
   const weeks = buildWeeks(date.year, date.month);
-  const calendar = renderCalendar(date.year, date.month, weeks);
+  const calendar = formatCalendar(date.year, date.month, weeks);
   console.log(calendar);
 };
 
@@ -58,23 +58,23 @@ const buildWeeks = (year, month) => {
   return weeks;
 };
 
-const renderCalendar = (year, month, weeks) => {
+const formatCalendar = (year, month, weeks) => {
   const weeksWithSpaces = weeks.map((week) =>
     week.map((day) => day.padStart(3)),
   );
-  const formattedCalendar = weeksWithSpaces
+  const formattedWeeks = weeksWithSpaces
     .map(
       (week) => week.join("").substring(1), // padStart(3)時に追加された日曜行の左端の余分な半角空白を、substring(1)で削除
     )
     .join("\n");
   const displayMonth = month + 1;
-  const display =
+  const formattedCalendar =
     [
       `      ${displayMonth}月 ${year}`,
       "日 月 火 水 木 金 土",
-      formattedCalendar,
+      formattedWeeks,
     ].join("\n") + "\n";
-  return display;
+  return formattedCalendar;
 };
 
 runCalendar();
