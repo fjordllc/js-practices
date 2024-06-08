@@ -5,9 +5,8 @@ import _ from "lodash-es";
 
 const runCalendar = () => {
   const date = setDate();
-  if (!date) {
-    // もしYearとMonthで文言を変えるなら、ここで!date.yearと!date.monthにしてそれぞれreturnさせる
-    console.log(
+  if (!date.year || !date.month) {
+    console.error(
       "不正な入力です。年は半角自然数・月は半角1~12で入力してください。",
     );
     return;
@@ -23,8 +22,7 @@ const setDate = () => {
     inputMonth = m;
   const today = new Date();
   const year = setYear(inputYear, today);
-  const month = setMonth(inputMonth, today); // もしYearとMonthで文言を変えるなら、下のif文を削除する
-  if (!year || !month) return;
+  const month = setMonth(inputMonth, today);
   const baseData = { year: year, month: month };
   return baseData;
 };
