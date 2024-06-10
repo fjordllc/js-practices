@@ -41,8 +41,7 @@ const buildWeeks = (year, month) => {
   const lastDate = new Date(year, month + 1, 0);
 
   const days = _.range(1, lastDate.getDate() + 1).map((day) => String(day));
-  const firstWeekBlankDays = Array(firstDate.getDay()).fill("");
-  days.unshift(...firstWeekBlankDays);
+  days.unshift(...Array(firstDate.getDay()).fill(""));
   return _.chunk(days, 7);
 };
 
