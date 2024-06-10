@@ -18,8 +18,8 @@ const runCalendar = () => {
 
 const yearAndMonth = () => {
   const { y: inputYear, m: inputMonth } = minimist(process.argv.slice(2));
-
   const today = new Date();
+
   return { year: year(inputYear, today), month: month(inputMonth, today) };
 };
 
@@ -43,9 +43,7 @@ const buildWeeks = (year, month) => {
   const days = _.range(1, lastDate.getDate() + 1).map((day) => String(day));
   const firstWeekBlankDays = Array(firstDate.getDay()).fill("");
   days.unshift(...firstWeekBlankDays);
-
-  const weeks = _.chunk(days, 7);
-  return weeks;
+  return _.chunk(days, 7);
 };
 
 const formatCalendar = (year, month, weeks) => {
@@ -57,10 +55,10 @@ const formatCalendar = (year, month, weeks) => {
       (week) => week.join("").substring(1), // padStart(3)時に追加された日曜行の左端の余分な半角空白を、substring(1)で削除
     )
     .join("\n");
-  const displayMonth = month + 1;
+
   const formattedCalendar =
     [
-      `      ${displayMonth}月 ${year}`,
+      `      ${month + 1}月 ${year}`,
       "日 月 火 水 木 金 土",
       formattedWeeks,
     ].join("\n") + "\n";
