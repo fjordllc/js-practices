@@ -28,22 +28,16 @@ const setDate = () => {
 };
 
 const setYear = (inputYear, today) => {
-  const year = Number.isSafeInteger(inputYear)
-    ? inputYear
-    : typeof inputYear === "undefined"
-      ? today.getFullYear()
-      : undefined;
-  return year;
+  if (Number.isSafeInteger(inputYear)) return inputYear;
+  if (typeof inputYear === "undefined") return today.getFullYear();
+  return undefined;
 };
 
 const setMonth = (inputMonth, today) => {
-  const month =
-    Number.isSafeInteger(inputMonth) && 1 <= inputMonth && inputMonth <= 12
-      ? inputMonth - 1
-      : typeof inputMonth === "undefined"
-        ? today.getMonth()
-        : undefined;
-  return month;
+  if (Number.isSafeInteger(inputMonth) && 1 <= inputMonth && inputMonth <= 12)
+    return inputMonth - 1;
+  if (typeof inputMonth === "undefined") return today.getMonth();
+  return undefined;
 };
 
 const buildWeeks = (year, month) => {
