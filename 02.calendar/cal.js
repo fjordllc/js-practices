@@ -4,16 +4,16 @@ import minimist from "minimist";
 import _ from "lodash-es";
 
 const runCal = () => {
-  const date = baseDateToMakeCalendar();
-  if (!date.year || !date.month) {
+  const baseDate = baseDateToMakeCalendar();
+  if (!baseDate.year || !baseDate.month) {
     console.error(
       "不正な入力です。年は半角自然数・月は半角1~12で入力してください。",
     );
     return;
   }
-  const weeks = buildWeeks(date.year, date.month);
-  const calendar = formatCalendar(date.year, date.month, weeks);
-  console.log(calendar);
+
+  const weeks = buildWeeks(baseDate.year, baseDate.month);
+  console.log(formatCalendar(baseDate.year, baseDate.month, weeks));
 };
 
 const baseDateToMakeCalendar = () => {
@@ -62,6 +62,7 @@ const formatCalendar = (year, month, weeks) => {
       "日 月 火 水 木 金 土",
       formattedWeeks,
     ].join("\n") + "\n";
+
   return formattedCalendar;
 };
 
