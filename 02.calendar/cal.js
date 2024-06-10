@@ -3,8 +3,8 @@
 import minimist from "minimist";
 import _ from "lodash-es";
 
-const runCalendar = () => {
-  const date = yearAndMonth();
+const runCal = () => {
+  const date = baseDateToMakeCalendar();
   if (!date.year || !date.month) {
     console.error(
       "不正な入力です。年は半角自然数・月は半角1~12で入力してください。",
@@ -16,7 +16,7 @@ const runCalendar = () => {
   console.log(calendar);
 };
 
-const yearAndMonth = () => {
+const baseDateToMakeCalendar = () => {
   const { y: inputYear, m: inputMonth } = minimist(process.argv.slice(2));
   const today = new Date();
 
@@ -65,4 +65,4 @@ const formatCalendar = (year, month, weeks) => {
   return formattedCalendar;
 };
 
-runCalendar();
+runCal();
