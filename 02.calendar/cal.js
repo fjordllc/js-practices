@@ -21,14 +21,16 @@ const selectYearAndMonth = () => {
   const { y: inputYear, m: inputMonth } = minimist(process.argv.slice(2));
   const defaultDate = new Date();
 
-  const year = inputYear ?? defaultDate.getFullYear();
-  const month = inputMonth ?? defaultDate.getMonth();
+  const year =
+    typeof inputYear === "undefined" ? defaultDate.getFullYear() : inputYear;
+  const month =
+    typeof inputMonth === "undefined" ? defaultDate.getMonth() : inputMonth - 1;
 
   if (
     !Number.isSafeInteger(year) ||
     !Number.isSafeInteger(month) ||
-    month < 1 ||
-    12 < month
+    month < 0 ||
+    11 < month
   ) {
     return undefined;
   }
