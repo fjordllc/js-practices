@@ -3,7 +3,7 @@
 import minimist from "minimist";
 import _ from "lodash-es";
 
-const runCal = () => {
+const run = () => {
   const baseDate = baseDateToMakeCalendar();
   if (!baseDate.year || !baseDate.month) {
     console.error(
@@ -13,7 +13,8 @@ const runCal = () => {
   }
 
   const weeks = buildWeeks(baseDate.year, baseDate.month);
-  console.log(formatCalendar(baseDate.year, baseDate.month, weeks));
+  const calendar = formatCalendar(baseDate.year, baseDate.month, weeks);
+  console.log(calendar);
 };
 
 const baseDateToMakeCalendar = () => {
@@ -46,10 +47,8 @@ const buildWeeks = (year, month) => {
 };
 
 const formatCalendar = (year, month, weeks) => {
-  const weeksWithSpaces = weeks.map((week) =>
-    week.map((day) => day.padStart(3)),
-  );
-  const formattedWeeks = weeksWithSpaces
+  const paddedWeeks = weeks.map((week) => week.map((day) => day.padStart(3)));
+  const formattedWeeks = paddedWeeks
     .map(
       (week) => week.join("").substring(1), // padStart(3)時に追加された日曜行の左端の余分な半角空白を、substring(1)で削除
     )
@@ -65,4 +64,4 @@ const formatCalendar = (year, month, weeks) => {
   return formattedCalendar;
 };
 
-runCal();
+run();
