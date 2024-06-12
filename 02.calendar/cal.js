@@ -39,7 +39,7 @@ const buildWeeks = (year, month) => {
   const lastDate = new Date(year, month + 1, 0);
 
   const days = _.range(1, lastDate.getDate() + 1).map((day) => String(day));
-  days.unshift(...Array(firstDate.getDay()).fill(""));
+  [...Array(firstDate.getDay()).fill(""), ...days];
   return _.chunk(days, 7);
 };
 
