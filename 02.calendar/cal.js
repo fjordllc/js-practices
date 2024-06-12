@@ -41,8 +41,8 @@ const buildWeeks = (year, month) => {
   const lastDate = new Date(year, month + 1, 0);
 
   const days = _.range(1, lastDate.getDate() + 1).map((day) => String(day));
-  [...Array(firstDate.getDay()).fill(""), ...days];
-  return _.chunk(days, 7);
+  const daysWithFirstSpaces = [...Array(firstDate.getDay()).fill(""), ...days];
+  return _.chunk(daysWithFirstSpaces, 7);
 };
 
 const formatCalendar = (year, month, weeks) => {
