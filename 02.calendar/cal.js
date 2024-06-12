@@ -18,8 +18,8 @@ const run = () => {
 };
 
 const selectYearAndMonth = () => {
-  const { y: inputYear, m: inputMonth } = minimist(process.argv.slice(2));
   const defaultDate = new Date();
+  const { y: inputYear, m: inputMonth } = minimist(process.argv.slice(2));
 
   const year =
     typeof inputYear === "undefined" ? defaultDate.getFullYear() : inputYear;
