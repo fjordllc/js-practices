@@ -4,8 +4,8 @@ import minimist from "minimist";
 import _ from "lodash-es";
 
 const run = () => {
-  const baseDate = baseDateToMakeCalendar();
-  if (!baseDate.year || !baseDate.month) {
+  const baseDate = selectYearAndMonth();
+  if (!baseDate) {
     console.error(
       "不正な入力です。年は半角自然数・月は半角1~12で入力してください。",
     );
@@ -17,24 +17,18 @@ const run = () => {
   console.log(calendar);
 };
 
-const baseDateToMakeCalendar = () => {
+const selectYearAndMonth = () => {
+  const defaultDate = new Date();
   const { y: inputYear, m: inputMonth } = minimist(process.argv.slice(2));
-  const dafaultDate = new Date();
 
-  let year = undefined;
-  if (Number.isSafeInteger(inputYear)) {
-    year = inputYear;
-  }
-  if (typeof inputYear === "undefined") {
-    year = dafaultDate.getFullYear();
-  }
+  let year = inputYear ?? defaultDate.getFullYear();
+  let month = inputMonth ?? defaultDate.getMonth();
 
-  let month = undefined;
-  if (Number.isSafeInteger(inputMonth) && 1 <= inputMonth && inputMonth <= 12) {
-    month = inputMonth - 1;
+  if (!Number.isSafeInteger(year)) {
+    return undefined;
   }
-  if (typeof inputMonth === "undefined") {
-    month = dafaultDate.getMonth();
+  if (!Number.isSafeInteger(month) || inputMonth < 1 || 12 < inputMonth) {
+    return undefined;
   }
 
   return { year, month };
