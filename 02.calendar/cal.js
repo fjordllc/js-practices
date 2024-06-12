@@ -19,22 +19,25 @@ const run = () => {
 
 const baseDateToMakeCalendar = () => {
   const { y: inputYear, m: inputMonth } = minimist(process.argv.slice(2));
-  const today = new Date();
+  const dafaultDate = new Date();
 
-  return { year: year(inputYear, today), month: month(inputMonth, today) };
-};
+  let year = undefined;
+  if (Number.isSafeInteger(inputYear)) {
+    year = inputYear;
+  }
+  if (typeof inputYear === "undefined") {
+    year = dafaultDate.getFullYear();
+  }
 
-const year = (inputYear, today) => {
-  if (Number.isSafeInteger(inputYear)) return inputYear;
-  if (typeof inputYear === "undefined") return today.getFullYear();
-  return undefined;
-};
+  let month = undefined;
+  if (Number.isSafeInteger(inputMonth) && 1 <= inputMonth && inputMonth <= 12) {
+    month = inputMonth - 1;
+  }
+  if (typeof inputMonth === "undefined") {
+    month = dafaultDate.getMonth();
+  }
 
-const month = (inputMonth, today) => {
-  if (Number.isSafeInteger(inputMonth) && 1 <= inputMonth && inputMonth <= 12)
-    return inputMonth - 1;
-  if (typeof inputMonth === "undefined") return today.getMonth();
-  return undefined;
+  return { year, month };
 };
 
 const buildWeeks = (year, month) => {
