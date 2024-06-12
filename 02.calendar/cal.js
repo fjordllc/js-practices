@@ -4,30 +4,32 @@ import minimist from "minimist";
 import _ from "lodash-es";
 
 const run = () => {
-  const baseDate = selectYearAndMonth();
-  if (!baseDate) {
+  const yearAndMonth = selectYearAndMonth();
+  if (!yearAndMonth) {
     console.error(
       "不正な入力です。年は半角自然数・月は半角1~12で入力してください。",
     );
     return;
   }
 
-  const weeks = buildWeeks(baseDate.year, baseDate.month);
-  const calendar = formatCalendar(baseDate.year, baseDate.month, weeks);
+  const weeks = buildWeeks(yearAndMonth.year, yearAndMonth.month);
+  const calendar = formatCalendar(yearAndMonth.year, yearAndMonth.month, weeks);
   console.log(calendar);
 };
 
 const selectYearAndMonth = () => {
-  const defaultDate = new Date();
   const { y: inputYear, m: inputMonth } = minimist(process.argv.slice(2));
+  const defaultDate = new Date();
 
-  let year = inputYear ?? defaultDate.getFullYear();
-  let month = inputMonth ?? defaultDate.getMonth();
+  const year = inputYear ?? defaultDate.getFullYear();
+  const month = inputMonth ?? defaultDate.getMonth();
 
-  if (!Number.isSafeInteger(year)) {
-    return undefined;
-  }
-  if (!Number.isSafeInteger(month) || inputMonth < 1 || 12 < inputMonth) {
+  if (
+    !Number.isSafeInteger(year) ||
+    !Number.isSafeInteger(month) ||
+    month < 1 ||
+    12 < month
+  ) {
     return undefined;
   }
 
