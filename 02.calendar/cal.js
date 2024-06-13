@@ -53,8 +53,8 @@ const formatCalendar = (year, month, weeks) => {
     (week) => week.join("").substring(1), // padStart(3)時に追加された日曜行の左端の余分な半角空白を、substring(1)で削除
   );
   const formattedCalendar =
-    [`      ${month + 1}月 ${year}`, "日 月 火 水 木 金 土", formattedWeeks]
-      .flat()
+    [`      ${month + 1}月 ${year}`, "日 月 火 水 木 金 土", ...formattedWeeks]
+      // .flat()
       .join("\n") + "\n";
 
   return formattedCalendar;
