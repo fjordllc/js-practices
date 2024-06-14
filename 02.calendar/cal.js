@@ -30,7 +30,7 @@ const selectYearAndMonth = () => {
 
   const defaultDate = new Date();
   const year = inputYear ?? defaultDate.getFullYear();
-  const month = (inputMonth ?? defaultDate.getMonth() + 1) - 1;
+  const month = (inputMonth ?? defaultDate.getMonth() + 1) - 1; // inputMonthは1~12想定のため、getMonth()の値に+1をして揃え、判定したのちに-1を行ってDate型用の数値に戻す
 
   return { year, month };
 };
@@ -50,9 +50,11 @@ const formatCalendar = (year, month, weeks) => {
     (week) => week.join("").substring(1), // padStart(3)時に追加された日曜行の左端の余分な半角空白を、substring(1)で削除
   );
   const formattedCalendar =
-    [`      ${month + 1}月 ${year}`, "日 月 火 水 木 金 土", ...formattedWeeks]
-      // .flat()
-      .join("\n") + "\n";
+    [
+      `      ${month + 1}月 ${year}`,
+      "日 月 火 水 木 金 土",
+      ...formattedWeeks,
+    ].join("\n") + "\n";
 
   return formattedCalendar;
 };
