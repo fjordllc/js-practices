@@ -4,36 +4,33 @@ import minimist from "minimist";
 import _ from "lodash-es";
 
 const run = () => {
-  const yearAndMonth = selectYearAndMonth();
-  if (!yearAndMonth) {
+  const { year, month } = selectYearAndMonth();
+  if (!year || !month) {
     console.error(
       "不正な入力です。年は半角自然数・月は半角1~12で入力してください。",
     );
     return;
   }
 
-  const weeks = buildWeeks(yearAndMonth.year, yearAndMonth.month);
-  const calendar = formatCalendar(yearAndMonth.year, yearAndMonth.month, weeks);
+  const weeks = buildWeeks(year, month);
+  const calendar = formatCalendar(year, month, weeks);
   console.log(calendar);
 };
 
 const selectYearAndMonth = () => {
-  const defaultDate = new Date();
   const { y: inputYear, m: inputMonth } = minimist(process.argv.slice(2));
 
-  const year =
-    typeof inputYear === "undefined" ? defaultDate.getFullYear() : inputYear;
-  const month =
-    typeof inputMonth === "undefined" ? defaultDate.getMonth() : inputMonth - 1;
-
-  if (
-    !Number.isSafeInteger(year) ||
-    !Number.isSafeInteger(month) ||
-    month < 0 ||
-    11 < month
-  ) {
-    return undefined;
+  const isSafeYear =
+    typeof inputYear === "undefined" || Number.isSafeInteger(inputYear);
+  const isSafeMonth =
+    typeof inputMonth === "undefined" || (1 < inputMonth && inputMonth < 12);
+  if (!isSafeYear || !isSafeMonth) {
+    return { year: undefined, month: undefined };
   }
+
+  const defaultDate = new Date();
+  const year = inputYear ?? defaultDate.getFullYear();
+  const month = (inputMonth ?? defaultDate.getMonth() + 1) - 1;
 
   return { year, month };
 };
