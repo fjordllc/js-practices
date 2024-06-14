@@ -23,7 +23,7 @@ const selectYearAndMonth = () => {
   const isSafeYear =
     typeof inputYear === "undefined" || Number.isSafeInteger(inputYear);
   const isSafeMonth =
-    typeof inputMonth === "undefined" || (1 < inputMonth && inputMonth < 12);
+    typeof inputMonth === "undefined" || (1 <= inputMonth && inputMonth <= 12);
   if (!isSafeYear || !isSafeMonth) {
     return { year: undefined, month: undefined };
   }
