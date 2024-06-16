@@ -7,7 +7,7 @@ const run = () => {
   const { year, month } = selectYearAndMonth();
   if (!year || !month) {
     console.error(
-      "不正な入力です。年は半角自然数・月は半角1~12で入力してください。",
+      "不正な入力です。年は1970~2100、月は1~12の間で半角自然数を使って入力してください。",
     );
     return;
   }
@@ -20,11 +20,10 @@ const run = () => {
 const selectYearAndMonth = () => {
   const { y: inputYear, m: inputMonth } = minimist(process.argv.slice(2));
 
-  const isSafeYear =
-    typeof inputYear === "undefined" || Number.isSafeInteger(inputYear);
-  const isSafeMonth =
-    typeof inputMonth === "undefined" || (1 <= inputMonth && inputMonth <= 12);
-  if (!isSafeYear || !isSafeMonth) {
+  if (Number(inputYear) < 1970 || 2100 < Number(inputYear)) {
+    return { year: undefined, month: undefined };
+  }
+  if (Number(inputMonth) < 1 || 12 < Number(inputMonth)) {
     return { year: undefined, month: undefined };
   }
 
