@@ -5,23 +5,19 @@ export class Connect {
     this.db = new sqlite3.Database("./db/memo.db");
   }
 
-  insertMemo(lines) {
+  addNote(lines) {
     this.#promiseRun("INSERT INTO notes(title, content) VALUES(?,?)", [
       lines[0],
       lines.slice(1).join("\n"),
     ]).then(() => this.close());
   }
 
-  deleteMemo(id) {
-    this.#promiseRun("DELETE FROM notes WHERE id = ?", [id]);
-  }
-
-  getMemo(id) {
-    return this.#promiseGet("SELECT * FROM notes WHERE id = ?", [id]);
-  }
-
-  getAllNotes() {
+  fetchAllNotes() {
     return this.#promiseAll("SELECT * FROM notes", []);
+  }
+
+  deleteNote(id) {
+    this.#promiseRun("DELETE FROM notes WHERE id = ?", [id]);
   }
 
   close() {
@@ -35,18 +31,6 @@ export class Connect {
           reject(err);
         } else {
           resolve(this);
-        }
-      });
-    });
-  }
-
-  #promiseGet(query, params = []) {
-    return new Promise((resolve, reject) => {
-      this.db.get(query, params, function (err, row) {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(row);
         }
       });
     });
