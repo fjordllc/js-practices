@@ -5,11 +5,17 @@ export class Connect {
     this.db = new sqlite3.Database("./db/memo.db");
   }
 
+  createTable() {
+    this.#promiseRun(
+      "CREATE TABLE IF NOT EXISTS notes(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, content TEXT)",
+    );
+  }
+
   addNote(lines) {
     this.#promiseRun("INSERT INTO notes(title, content) VALUES(?,?)", [
       lines[0],
       lines.slice(1).join("\n"),
-    ]).then(() => this.close());
+    ]);
   }
 
   fetchAllNotes() {
