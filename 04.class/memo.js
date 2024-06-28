@@ -8,9 +8,9 @@ const options = minimist(process.argv.slice(2));
 if (options.l) {
   controller.seeAllNotes();
 } else if (options.r) {
-  controller.selectAndSee();
+  controller.seeNote();
 } else if (options.d) {
-  controller.selectAndDelete();
+  controller.deleteNote();
 } else {
   controller.createNote();
 }

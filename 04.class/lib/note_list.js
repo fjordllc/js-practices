@@ -10,7 +10,7 @@ export class NoteList {
   }
 
   seeAllTitles() {
-    this._notes.forEach((note) => console.log(note.title));
+    this.notes.forEach((note) => console.log(note.title));
   }
 
   async selectNote(messageText) {
