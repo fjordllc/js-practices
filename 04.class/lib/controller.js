@@ -10,30 +10,30 @@ export class Controller {
   }
 
   async seeAllNotes() {
-    const connect1 = new Connect();
-    const notes = await connect1.fetchAllNotes();
+    const connect = new Connect();
+    const notes = await connect.fetchAllNotes();
     const noteList = new NoteList(notes);
     noteList.seeAllTitles();
-    connect1.close();
+    connect.close();
   }
 
   async seeNote() {
-    const connect1 = new Connect();
-    const notes = await connect1.fetchAllNotes();
+    const connect = new Connect();
+    const notes = await connect.fetchAllNotes();
     const noteList = new NoteList(notes);
     const note = await noteList.selectNote("Choose a note you want to see:");
     console.log(note.title);
     console.log(note.content);
-    connect1.close();
+    connect.close();
   }
 
   async deleteNote() {
-    const connect1 = new Connect();
-    const notes = await connect1.fetchAllNotes();
+    const connect = new Connect();
+    const notes = await connect.fetchAllNotes();
     const noteList = new NoteList(notes);
     const note = await noteList.selectNote("Choose a memo you want to delete:");
-    connect1.deleteNote(note.id);
-    connect1.close();
+    connect.deleteNote(note.id);
+    connect.close();
   }
 
   createNote() {
