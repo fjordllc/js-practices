@@ -5,6 +5,10 @@ export class Connect {
     this.db = new sqlite3.Database("./db/memo.db");
   }
 
+  deleteTable() {
+    this.#promiseRun("DROP TABLE notes IF EXISTS");
+  }
+
   createTable() {
     this.#promiseRun(
       "CREATE TABLE IF NOT EXISTS notes(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, content TEXT)",
@@ -27,7 +31,7 @@ export class Connect {
   }
 
   close() {
-    this.db.close();
+    this.#promiseClose();
   }
 
   #promiseRun(query, params = []) {
@@ -49,6 +53,18 @@ export class Connect {
           reject(err);
         } else {
           resolve(rows);
+        }
+      });
+    });
+  }
+
+  #promiseClose() {
+    return new Promise((resolve, reject) => {
+      this.db.close((err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
         }
       });
     });
