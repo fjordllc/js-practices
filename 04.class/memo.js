@@ -6,7 +6,7 @@ controller.createTable();
 
 const options = minimist(process.argv.slice(2));
 if (options.l) {
-  controller.seeAllNotes();
+  controller.seeAllTitles();
 } else if (options.r) {
   controller.seeNote();
 } else if (options.d) {
