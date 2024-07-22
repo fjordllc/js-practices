@@ -3,10 +3,8 @@ import { Connect } from "./connect.js";
 import { NoteList } from "./note_list.js";
 
 export class Controller {
-  createTable() {
-    const connect = new Connect();
-    connect.createTable();
-    connect.close();
+  constructor() {
+    this.connect = new Connect();
   }
 
   async seeAllNotes() {
@@ -17,25 +15,35 @@ export class Controller {
   // async deleteTable() {
   //   this.connect.deleteTable();
   // }
+
+  async createTable() {
+    this.connect.createTable();
+  }
+
+  async seeAllTitles() {
+    const noteList = await this.#fetchAllNotes();
+    if (typeof noteList !== "undefined") {
+      noteList.seeAllTitles();
+    }
   }
 
   async seeNote() {
-    const connect = new Connect();
-    const notes = await connect.fetchAllNotes();
-    const noteList = new NoteList(notes);
-    const note = await noteList.selectNote("Choose a note you want to see:");
-    console.log(note.title);
-    console.log(note.content);
-    connect.close();
+    const noteList = await this.#fetchAllNotes();
+    if (typeof noteList !== "undefined") {
+      const note = await noteList.selectNote("Choose a note you want to see:");
+      console.log(note.title);
+      console.log(note.content);
+    }
   }
 
   async deleteNote() {
-    const connect = new Connect();
-    const notes = await connect.fetchAllNotes();
-    const noteList = new NoteList(notes);
-    const note = await noteList.selectNote("Choose a memo you want to delete:");
-    connect.deleteNote(note.id);
-    connect.close();
+    const noteList = await this.#fetchAllNotes();
+    if (typeof noteList !== "undefined") {
+      const note = await noteList.selectNote(
+        "Choose a memo you want to delete:",
+      );
+      this.connect.deleteNote(note.id);
+    }
   }
 
   createNote() {
@@ -54,10 +62,21 @@ export class Controller {
 
     rl.on("close", async () => {
       if (lines.length !== 0) {
-        const connect = new Connect();
-        connect.addNote(lines);
-        connect.close();
+        this.connect.addNote(lines);
       }
     });
+  }
+
+  close() {
+    this.connect.close();
+  }
+
+  async #fetchAllNotes() {
+    const notes = await this.connect.fetchAllNotes();
+    if (notes.length === 0) {
+      console.log("There are no notes yet.");
+      return;
+    }
+    return new NoteList(notes);
   }
 }

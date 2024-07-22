@@ -14,3 +14,5 @@ if (options.l) {
 } else {
   controller.createNote();
 }
+
+controller.close();
