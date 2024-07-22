@@ -14,7 +14,9 @@ export class Controller {
     const notes = await connect.fetchAllNotes();
     const noteList = new NoteList(notes);
     noteList.seeAllTitles();
-    connect.close();
+  // async deleteTable() {
+  //   this.connect.deleteTable();
+  // }
   }
 
   async seeNote() {

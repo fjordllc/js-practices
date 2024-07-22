@@ -5,9 +5,9 @@ export class Connect {
     this.db = new sqlite3.Database("./db/memo.db");
   }
 
-  deleteTable() {
-    this.#promiseRun("DROP TABLE notes IF EXISTS");
-  }
+  // deleteTable() {
+  //   this.#promiseRun("DROP TABLE notes");
+  // }
 
   createTable() {
     this.#promiseRun(
