@@ -49,9 +49,15 @@ export class Controller {
     const lines = [];
     await this.#promiseBasedReadlineOn(rl, "line", (input, resolve) => {
       if (input === "EOF") {
-        if (lines.length !== 0) {
-          this.connect.addNote(lines);
+        if (lines.length === 0) {
+          rl.close();
+          resolve();
+          return;
         }
+        if (!lines[0]) {
+          lines[0] = "NoTitle";
+        }
+        this.connect.addNote(lines);
         rl.close();
         resolve();
       } else {
