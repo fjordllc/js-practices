@@ -10,31 +10,31 @@ export class Connect {
   // }
 
   createTable() {
-    this.#promiseRun(
+    this.#promiseBasedRun(
       "CREATE TABLE IF NOT EXISTS notes(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, content TEXT)",
     );
   }
 
   addNote(lines) {
-    this.#promiseRun("INSERT INTO notes(title, content) VALUES(?,?)", [
+    this.#promiseBasedRun("INSERT INTO notes(title, content) VALUES(?,?)", [
       lines[0],
       lines.slice(1).join("\n"),
     ]);
   }
 
   fetchAllNotes() {
-    return this.#promiseAll("SELECT * FROM notes", []);
+    return this.#promiseBasedAll("SELECT * FROM notes", []);
   }
 
   deleteNote(id) {
-    this.#promiseRun("DELETE FROM notes WHERE id = ?", [id]);
+    this.#promiseBasedRun("DELETE FROM notes WHERE id = ?", [id]);
   }
 
   close() {
-    this.#promiseClose();
+    this.#promiseBasedClose();
   }
 
-  #promiseRun(query, params = []) {
+  #promiseBasedRun(query, params = []) {
     return new Promise((resolve, reject) => {
       this.db.run(query, params, function (err) {
         if (err) {
@@ -46,7 +46,7 @@ export class Connect {
     });
   }
 
-  #promiseAll(query, params = []) {
+  #promiseBasedAll(query, params = []) {
     return new Promise((resolve, reject) => {
       this.db.all(query, params, (err, rows) => {
         if (err) {
@@ -58,7 +58,7 @@ export class Connect {
     });
   }
 
-  #promiseClose() {
+  #promiseBasedClose() {
     return new Promise((resolve, reject) => {
       this.db.close((err) => {
         if (err) {
