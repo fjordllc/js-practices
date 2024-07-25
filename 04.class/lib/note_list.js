@@ -2,11 +2,7 @@ import Enquirer from "enquirer";
 
 export class NoteList {
   constructor(notes) {
-    this._notes = notes;
-  }
-
-  get notes() {
-    return this._notes;
+    this.notes = notes;
   }
 
   seeAllTitles() {
