@@ -41,28 +41,26 @@ export class Controller {
     }
   }
 
-  createNote() {
+  async createNote() {
     const rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout,
     });
     const lines = [];
-    rl.on("line", (line) => {
-      if (line === "EOF") {
+    await this.#promiseBasedReadlineOn(rl, "line", (input, resolve) => {
+      if (input === "EOF") {
+        if (lines.length !== 0) {
+          this.connect.addNote(lines);
+        }
         rl.close();
+        resolve();
       } else {
-        lines.push(line);
-      }
-    });
-
-    rl.on("close", async () => {
-      if (lines.length !== 0) {
-        this.connect.addNote(lines);
+        lines.push(input);
       }
     });
   }
 
-  close() {
+  async close() {
     this.connect.close();
   }
 
@@ -74,4 +72,12 @@ export class Controller {
     }
     return new NoteList(notes);
   }
+
+  #promiseBasedReadlineOn = (rl, event, callback) => {
+    return new Promise((resolve) => {
+      rl.on(event, (input) => {
+        callback(input, resolve);
+      });
+    });
+  };
 }
