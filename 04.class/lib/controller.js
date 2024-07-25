@@ -66,7 +66,7 @@ export class Controller {
     });
   }
 
-  close() {
+  async close() {
     this.connect.close();
   }
 
