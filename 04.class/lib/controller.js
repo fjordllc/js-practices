@@ -12,32 +12,66 @@ export class Controller {
   // }
 
   async createTable() {
-    this.connect.createTable();
+    try {
+      this.connect.createTable();
+    } catch (err) {
+      if (err instanceof Error && err.code === "SQLITE_ERROR") {
+        console.error(err);
+      } else {
+        throw err;
+      }
+    }
   }
 
   async seeAllTitles() {
-    const noteList = await this.#fetchAllNotes();
-    if (typeof noteList !== "undefined") {
-      noteList.seeAllTitles();
+    try {
+      const noteList = await this.#fetchAllNotes();
+      if (typeof noteList !== "undefined") {
+        noteList.seeAllTitles();
+      }
+    } catch (err) {
+      if (err instanceof Error && err.code === "SQLITE_ERROR") {
+        console.error(err);
+      } else {
+        throw err;
+      }
     }
   }
 
   async seeNote() {
-    const noteList = await this.#fetchAllNotes();
-    if (typeof noteList !== "undefined") {
-      const note = await noteList.selectNote("Choose a note you want to see:");
-      console.log(note.title);
-      console.log(note.content);
+    try {
+      const noteList = await this.#fetchAllNotes();
+      if (typeof noteList !== "undefined") {
+        const note = await noteList.selectNote(
+          "Choose a note you want to see:",
+        );
+        console.log(note.title);
+        console.log(note.content);
+      }
+    } catch (err) {
+      if (err instanceof Error && err.code === "SQLITE_ERROR") {
+        console.error(err);
+      } else {
+        throw err;
+      }
     }
   }
 
   async deleteNote() {
-    const noteList = await this.#fetchAllNotes();
-    if (typeof noteList !== "undefined") {
-      const note = await noteList.selectNote(
-        "Choose a memo you want to delete:",
-      );
-      this.connect.deleteNote(note.id);
+    try {
+      const noteList = await this.#fetchAllNotes();
+      if (typeof noteList !== "undefined") {
+        const note = await noteList.selectNote(
+          "Choose a memo you want to delete:",
+        );
+        this.connect.deleteNote(note.id);
+      }
+    } catch (err) {
+      if (err instanceof Error && err.code === "SQLITE_ERROR") {
+        console.error(err);
+      } else {
+        throw err;
+      }
     }
   }
 
@@ -47,27 +81,44 @@ export class Controller {
       output: process.stdout,
     });
     const lines = [];
-    await this.#promiseBasedReadlineOn(rl, "line", (input, resolve) => {
-      if (input === "EOF") {
-        if (lines.length === 0) {
+
+    try {
+      await this.#promiseBasedReadlineOn(rl, "line", (input, resolve) => {
+        if (input === "EOF") {
+          if (lines.length === 0) {
+            rl.close();
+            resolve();
+            return;
+          }
+          if (!lines[0]) {
+            lines[0] = "NoTitle";
+          }
+          this.connect.addNote(lines);
           rl.close();
           resolve();
-          return;
+        } else {
+          lines.push(input);
         }
-        if (!lines[0]) {
-          lines[0] = "NoTitle";
-        }
-        this.connect.addNote(lines);
-        rl.close();
-        resolve();
+      });
+    } catch (err) {
+      if (err instanceof Error && err.code === "SQLITE_ERROR") {
+        console.error(err);
       } else {
-        lines.push(input);
+        throw err;
       }
-    });
+    }
   }
 
   async close() {
-    this.connect.close();
+    try {
+      this.connect.close();
+    } catch (err) {
+      if (err instanceof Error && err.code === "SQLITE_ERROR") {
+        console.error(err);
+      } else {
+        throw err;
+      }
+    }
   }
 
   async #fetchAllNotes() {
