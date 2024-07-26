@@ -7,10 +7,6 @@ export class Controller {
     this.connect = new Connect();
   }
 
-  // async deleteTable() {
-  //   this.connect.deleteTable();
-  // }
-
   async createTable() {
     try {
       this.connect.createTable();

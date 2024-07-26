@@ -2,7 +2,6 @@ import minimist from "minimist";
 import { Controller } from "./lib/controller.js";
 
 const controller = new Controller();
-// await controller.deleteTable();
 
 controller.createTable();
 
