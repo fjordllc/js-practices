@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 let n = 1;
 while (n <= 20) {
   if (n % 15 == 0) {
