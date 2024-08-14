@@ -1,8 +1,7 @@
 {
   "scripts": {
     "fix": "prettier --write . && eslint --fix .",
-    "lint": "prettier --check . && eslint .",
-    "fix:calendar": "prettier --write calendar.js && eslint --fix calendar.js"
+    "lint": "prettier --check . && eslint ."
   },
   "devDependencies": {
     "@eslint/js": "^9.3.0",
