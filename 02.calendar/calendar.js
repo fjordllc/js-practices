@@ -4,9 +4,7 @@ import { DateTime as LuxonDateTime} from "luxon";
 import minimist from "minimist";
 
 const args = minimist(process.argv.slice(2));
-
 const now = LuxonDateTime.now();
-
 const month = args.m || now.month;
 const year = args.y || now.year;
 
@@ -30,10 +28,8 @@ if(firstWeekday === 7) {
   firstWeekday = 0;
 }
 
-const daysOfWeek = ['日','月','火','水','木','金','土'];
-
+console.log ("日 月 火 水 木 金 土");
 console.log(`\n     ${firstDay.month}月 ${year}`);
-console.log(daysOfWeek.join(' '));
 
 let dayString = '';
 for(let i = 0; i < firstWeekday; i++) {
