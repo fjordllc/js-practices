@@ -1,14 +1,12 @@
 #!/usr/bin/env node
 
-import { DateTime } from 'luxon';
-import minimist from 'minimist';
+import { DateTime as LuxonDateTime} from "luxon";
+import minimist from "minimist";
 
 const args = minimist(process.argv.slice(2));
 
-const now = DateTime.now();
+const now = LuxonDateTime.now();
 
-const month = args.m ? parseInt(args.m, 10) : now.month;
-const year = args.y ? parseInt(args.y, 10) : now.year;
 
 
 if (month < 1 || month > 12) {
@@ -21,8 +19,8 @@ if (year < 1970 || year > 2100) {
   process.exit(1);
 }
 
-const firstDay = DateTime.local(year, month, 1);
-const lastDay = firstDay.endOf('month');
+const firstDay = LuxonDateTime.local(year, month, 1);
+const lastDay = firstDay.endOf("month");
 const daysInMonth = lastDay.day;
 
 let firstWeekday = firstDay.weekday;
