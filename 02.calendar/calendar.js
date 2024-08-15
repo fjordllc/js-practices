@@ -7,6 +7,8 @@ const args = minimist(process.argv.slice(2));
 
 const now = LuxonDateTime.now();
 
+const month = args.m || now.month;
+const year = args.y || now.year;
 
 
 if (month < 1 || month > 12) {
