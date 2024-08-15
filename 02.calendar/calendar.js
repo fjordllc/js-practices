@@ -33,13 +33,17 @@ for(let i = 0; i < firstWeekday; i++) {
 }
 
 for (let currentDay = 1; currentDay <= daysInMonth; currentDay++) {
-  dayString += '${currentDay.toString().padStart(2, " ")}';
+  if(dayString !==""){
+    dayString += " ";
+  }
+  dayString += currentDay.toString().padStart(2, " ");
+
   if ((firstWeekday + currentDay) % 7 === 0) {
-    console.log(dayString.trimEnd());
-    dayString = '';
+    console.log(dayString);
+    dayString = "";
   }
 }
 
 if (dayString) {
-  console.log(dayString.trimEnd());
+  console.log(dayString);
 }
