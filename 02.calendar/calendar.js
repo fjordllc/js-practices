@@ -22,14 +22,10 @@ if (year < 1970 || year > 2100) {
 const firstDay = LuxonDateTime.local(year, month, 1);
 const lastDay = firstDay.endOf("month");
 const daysInMonth = lastDay.day;
-
-let firstWeekday = firstDay.weekday;
-if(firstWeekday === 7) {
-  firstWeekday = 0;
-}
+const firstWeekday = firstDay.weekday === 7 ? 0 : firstDay.weekday;
 
 console.log ("日 月 火 水 木 金 土");
-console.log(`\n     ${firstDay.month}月 ${year}`);
+console.log(`\n     ${firstDay.month}月 ${firstDay.year}`);
 
 let dayString = '';
 for(let i = 0; i < firstWeekday; i++) {
