@@ -20,7 +20,7 @@ if (date.year < 1970 || date.year > 2100) {
 const firstDateOfMonth = date.startOf("month");
 const lastDateOfMonth = firstDateOfMonth.endOf("month");
 const daysInMonth = lastDateOfMonth.day;
-const firstWeekday = firstDateOfMonth.weekday === 7 ? 0 : firstDateOfMonth.weekday;
+const firstWeekday = (firstDateOfMonth.weekday % 7);
 
 console.log(`\n     ${firstDateOfMonth.month}月 ${firstDateOfMonth.year}`);
 console.log ("日 月 火 水 木 金 土");
