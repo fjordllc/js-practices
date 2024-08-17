@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { DateTime as LuxonDateTime} from "luxon";
+import { DateTime as LuxonDateTime } from "luxon";
 import minimist from "minimist";
 
 const args = minimist(process.argv.slice(2));
@@ -20,28 +20,18 @@ if (date.year < 1970 || date.year > 2100) {
 const firstDateOfMonth = date.startOf("month");
 const lastDateOfMonth = firstDateOfMonth.endOf("month");
 const daysInMonth = lastDateOfMonth.day;
-const firstWeekday = (firstDateOfMonth.weekday % 7);
+const firstWeekday = firstDateOfMonth.weekday % 7;
 
 console.log(`\n     ${firstDateOfMonth.month}月 ${firstDateOfMonth.year}`);
 console.log ("日 月 火 水 木 金 土");
 
-let dayString = '';
-for(let i = 0; i < firstWeekday; i++) {
-  dayString += '   ';
-}
+let dayString = " ".repeat(firstWeekday * 3);
 
 for (let currentDay = 1; currentDay <= daysInMonth; currentDay++) {
-  if(dayString !==""){
-    dayString += " ";
-  }
-  dayString += currentDay.toString().padStart(2, " ");
+  dayString += currentDay.toString().padStart(2, " ") + " ";
 
-  if ((firstWeekday + currentDay) % 7 === 0) {
-    console.log(dayString);
+  if ((firstWeekday + currentDay) % 7 === 0 || currentDay === daysInMonth) {
+    console.log(dayString.trimEnd());
     dayString = "";
   }
-}
-
-if (dayString) {
-  console.log(dayString);
 }
