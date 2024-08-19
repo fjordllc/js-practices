@@ -5,8 +5,8 @@ import minimist from "minimist";
 
 const args = minimist(process.argv.slice(2));
 const now = luxon.DateTime.now();
-const year = args.y || now.year;
-const month = args.m || now.month;
+const year = args.y ?? now.year;
+const month = args.m ?? now.month;
 
 const date = luxon.DateTime.local(year, month, 1);
 
