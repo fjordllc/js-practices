@@ -25,7 +25,7 @@ const lastDateOfMonth = firstDateOfMonth.endOf("month");
 const daysInMonth = lastDateOfMonth.day;
 const firstWeekday = firstDateOfMonth.weekday % 7;
 
-console.log(`\n     ${firstDateOfMonth.setLocale('ja').toFormat('M月 yyyy')}`);
+console.log(`     ${firstDateOfMonth.setLocale("ja").toFormat("M月 yyyy")}`);
 console.log("日 月 火 水 木 金 土");
 
 let dayString = " ".repeat(firstWeekday * 3);
