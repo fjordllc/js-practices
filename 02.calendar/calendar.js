@@ -20,18 +20,18 @@ if (year < 1970 || year > 2100) {
 
 const firstDateOfMonth = luxon.DateTime.local(year, month, 1).startOf("month");
 const lastDateOfMonth = firstDateOfMonth.endOf("month");
-const daysInMonth = lastDateOfMonth.day;
-const firstWeekday = firstDateOfMonth.weekday % 7;
+// const daysInMonth = lastDateOfMonth.day;
+// const firstWeekday = firstDateOfMonth.weekday % 7;
 
 console.log(`     ${firstDateOfMonth.setLocale("ja").toFormat("M月 yyyy")}`);
 console.log("日 月 火 水 木 金 土");
 
-let dayString = " ".repeat(firstWeekday * 3);
+let dayString = " ".repeat(firstDateOfMonth.weekday % 7 * 3);
 
-for (let currentDay = 1; currentDay <= daysInMonth; currentDay++) {
-  dayString += currentDay.toString().padStart(2, " ") + " ";
+for (let currentDate = firstDateOfMonth; currentDate <= lastDateOfMonth; currentDate = currentDate.plus({days:1})) {
+  dayString += currentDate.day.toString().padStart(2, " ") + " ";
 
-  if ((firstWeekday + currentDay) % 7 === 0 || currentDay === daysInMonth) {
+  if (currentDate.weekday === 6 || currentDate.equals(lastDateOfMonth)) {
     console.log(dayString.trimEnd());
     dayString = "";
   }
