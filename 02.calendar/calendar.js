@@ -8,8 +8,6 @@ const now = luxon.DateTime.now();
 const year = args.y ?? now.year;
 const month = args.m ?? now.month;
 
-const date = luxon.DateTime.local(year, month, 1);
-
 if (month < 1 || month > 12) {
   console.error("Month must be between 1 and 12.");
   process.exit(1);
@@ -20,6 +18,7 @@ if (year < 1970 || year > 2100) {
   process.exit(1);
 }
 
+const date = luxon.DateTime.local(year, month, 1);
 const firstDateOfMonth = date.startOf("month");
 const lastDateOfMonth = firstDateOfMonth.endOf("month");
 const daysInMonth = lastDateOfMonth.day;
