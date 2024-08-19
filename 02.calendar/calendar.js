@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
-import { DateTime as LuxonDateTime } from "luxon";
+import * as luxon from "luxon";
 import minimist from "minimist";
 
 const args = minimist(process.argv.slice(2));
-const now = LuxonDateTime.now();
+const now = luxon.DateTime.now();
 const year = args.y || now.year;
 const month = args.m || now.month;
 
-const date = LuxonDateTime.local(year, month, 1);
+const date = luxon.DateTime.local(year, month, 1);
 
 if (month < 1 || month > 12) {
   console.error("Month must be between 1 and 12.");
