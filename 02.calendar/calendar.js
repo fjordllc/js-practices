@@ -20,8 +20,6 @@ if (year < 1970 || year > 2100) {
 
 const firstDateOfMonth = luxon.DateTime.local(year, month, 1).startOf("month");
 const lastDateOfMonth = firstDateOfMonth.endOf("month");
-// const daysInMonth = lastDateOfMonth.day;
-// const firstWeekday = firstDateOfMonth.weekday % 7;
 
 console.log(`     ${firstDateOfMonth.setLocale("ja").toFormat("M月 yyyy")}`);
 console.log("日 月 火 水 木 金 土");
