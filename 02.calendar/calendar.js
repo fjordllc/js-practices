@@ -18,8 +18,7 @@ if (year < 1970 || year > 2100) {
   process.exit(1);
 }
 
-const date = luxon.DateTime.local(year, month, 1);
-const firstDateOfMonth = date.startOf("month");
+const firstDateOfMonth = luxon.DateTime.local(year, month, 1).startOf("month");
 const lastDateOfMonth = firstDateOfMonth.endOf("month");
 const daysInMonth = lastDateOfMonth.day;
 const firstWeekday = firstDateOfMonth.weekday % 7;
