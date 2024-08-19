@@ -1,18 +1,18 @@
 {
-  "scripts": {
-    "fix": "prettier --write . && eslint --fix .",
-    "lint": "prettier --check . && eslint ."
+  "name": "02.calendar",
+  "version": "1.0.0",
+  "main": "calendar.js",
+  "type": "module",
+  "scripts":{
+     "lint":"eslint .",
+     "format": "prettier --check ."  
   },
   "devDependencies": {
     "eslint": "^9.9.0",
     "eslint-config-prettier": "^9.1.0",
     "prettier": "^3.3.3"
   },
-  "type": "module",
-  "name": "02.calendar",
-  "version": "1.0.0",
-  "main": "calendar.js",
-  "dependencies": {
+  "dependencies":{
     "luxon": "^3.5.0",
     "minimist": "^1.2.8"
   }
