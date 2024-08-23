@@ -1,19 +1,20 @@
 {
   "name": "02.calendar",
   "version": "1.0.0",
-  "main": "calendar.js",
   "type": "module",
-  "scripts":{
-     "lint":"eslint .",
-     "format": "prettier --check ."  
+  "scripts": {
+    "lint": "prettier --write . && eslint --fix .",
+    "postinstall": "chmod +x cal.js"
   },
   "devDependencies": {
-    "eslint": "^9.9.0",
+    "@eslint/js": "^9.3.0",
+    "eslint": "^9.8.0",
     "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "globals": "^15.3.0",
     "prettier": "^3.3.3"
   },
-  "dependencies":{
-    "luxon": "^3.5.0",
-    "minimist": "^1.2.8"
+  "dependencies": {
+    "luxon": "^3.5.0"
   }
 }
