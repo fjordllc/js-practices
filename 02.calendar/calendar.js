@@ -18,11 +18,11 @@ if (year < 1970 || year > 2100) {
   process.exit(1);
 }
 
-const firstDateOfMonth = luxon.DateTime.local(year, month, 1).startOf("month");
+const firstDateOfMonth = luxon.DateTime.local(year, month, 1);
 const lastDateOfMonth = firstDateOfMonth.endOf("month");
 
-const header = `${firstDateOfMonth.setLocale("ja").toFormat("M月 yyyy")}`;
-console.log(header.padStart((header.length + 20) / 2).padEnd(20));
+const header = (firstDateOfMonth + "月" + firstDateOfMonth.year).padStart((firstDateOfMonth.month.toString().length + firstDateOfMonth.year.toString().length + 4) / 2).padEnd(20);
+console.log(header);
 console.log("日 月 火 水 木 金 土");
 
 let dayString = " ".repeat((firstDateOfMonth.weekday % 7) * 3);
@@ -40,4 +40,4 @@ for (
   }
 }
 
-console.log("");
+console.log();
