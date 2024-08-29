@@ -18,24 +18,24 @@ if (year < 1970 || year > 2100) {
   process.exit(1);
 }
 
-const firstDateOfMonth = luxon.DateTime.local(year, month, 1);
-const lastDateOfMonth = firstDateOfMonth.endOf("month");
+const startDate = luxon.DateTime.local(year, month, 1);
+const endDate = startDate.endOf("month");
 
-const header = firstDateOfMonth + "月" + firstDateOfMonth.year;
+const header = startDate + "月" + startDate.year;
 const padding = Math.floor((20 - header.length) / 2);
 console.log(" ".repeat(padding) + header);
 console.log("日 月 火 水 木 金 土");
 
-let dayString = " ".repeat((firstDateOfMonth.weekday % 7) * 3);
+let dayString = " ".repeat((startDate.weekday % 7) * 3);
 
 for (
-  let currentDate = firstDateOfMonth;
-  currentDate <= lastDateOfMonth;
+  let currentDate = startDate;
+  currentDate <= endDate;
   currentDate = currentDate.plus({ days: 1 })
 ) {
   dayString += currentDate.day.toString().padStart(2, " ") + " ";
 
-  if (currentDate.weekday === 6 || currentDate.equals(lastDateOfMonth)) {
+  if (currentDate.weekday === 6 || currentDate.equals(endDate)) {
     console.log(dayString.trimEnd());
     dayString = "";
   }
