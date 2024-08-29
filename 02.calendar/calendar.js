@@ -21,8 +21,9 @@ if (year < 1970 || year > 2100) {
 const firstDateOfMonth = luxon.DateTime.local(year, month, 1);
 const lastDateOfMonth = firstDateOfMonth.endOf("month");
 
-const header = (firstDateOfMonth + "月" + firstDateOfMonth.year).padStart((firstDateOfMonth.month.toString().length + firstDateOfMonth.year.toString().length + 4) / 2).padEnd(20);
-console.log(header);
+const header = firstDateOfMonth + "月" + firstDateOfMonth.year;
+const padding = Math.floor((20 - header.length) / 2);
+console.log(" ".repeat(padding) + header);
 console.log("日 月 火 水 木 金 土");
 
 let dayString = " ".repeat((firstDateOfMonth.weekday % 7) * 3);
