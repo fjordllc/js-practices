@@ -36,7 +36,7 @@ for (
 ) {
   dayString += `${currentDate.day.toString().padStart(2, " ")}`;
 
-  if (currentDate.weekday === 6 || currentDate.equals(endDate)) {
+  if (currentDate.weekday === 6 || currentDate.day === endDate.day) {
     console.log(dayString.trimEnd());
     dayString = "";
   } else {
