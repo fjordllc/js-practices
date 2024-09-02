@@ -1,6 +1,6 @@
 {
-    "type":"module",
-    "scripts": {
+  "type": "module",
+  "scripts": {
     "fix": "prettier --write . && eslint --fix .",
     "lint": "prettier --check . && eslint ."
   },
@@ -13,6 +13,6 @@
   },
   "dependencies": {
     "luxon": "^3.5.0",
-    "minimist": "^1.2.8" 
+    "minimist": "^1.2.8"
   }
 }
