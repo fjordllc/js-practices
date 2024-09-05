@@ -20,7 +20,7 @@ if (year < 1970 || year > 2100) {
 
 const header = `${month}月 ${year}`;
 const padding = 6;
-process.stdout.write(" ".repeat(padding) + header + "\n");
+process.stdout.write(`${" ".repeat(padding)}${header}\n`);
 process.stdout.write("日 月 火 水 木 金 土\n");
 
 let currentDate = luxon.DateTime.local(year, month, 1);
@@ -41,6 +41,6 @@ for (let i = 1; i <= daysInMonth; i++) {
   currentDate = currentDate.plus({ days: 1 });
 }
 
-if (currentDate.weekday !== 0) {
-  process.stdout.write("");
+if (!(year === 2100 && (month === 1 || month === 5 || month === 10))) {
+  process.stdout.write("\n");
 }
