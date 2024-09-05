@@ -18,40 +18,29 @@ if (year < 1970 || year > 2100) {
   process.exit(1);
 }
 
-const monthNames = [
-  "1月",
-  "2月",
-  "3月",
-  "4月",
-  "5月",
-  "6月",
-  "7月",
-  "8月",
-  "9月",
-  "10月",
-  "11月",
-  "12月",
-];
-const header = `${monthNames[month - 1]} ${year}`;
-const padding = Math.floor((20 - header.length) / 2);
-console.log(" ".repeat(padding) + header);
-console.log("日 月 火 水 木 金 土");
+const header = `${month}月 ${year}`;
+const padding = 6;
+process.stdout.write(" ".repeat(padding) + header + "\n");
+process.stdout.write("日 月 火 水 木 金 土\n");
 
-const startDay = luxon.DateTime.local(year, month, 1).weekday % 7;
+let currentDate = luxon.DateTime.local(year, month, 1);
+const startDay = currentDate.weekday % 7;
 let dayString = " ".repeat(startDay * 3);
 
-const daysInMonth = luxon.DateTime.local(year, month).daysInMonth;
+const daysInMonth = currentDate.daysInMonth;
 
-for (let day = 1; day <= daysInMonth; day++) {
-  const currentDate = luxon.DateTime.local(year, month, day);
-  dayString += day.toString().padStart(2, " ");
+for (let i = 1; i <= daysInMonth; i++) {
+  dayString += currentDate.day.toString().padStart(2, " ");
 
-  if (currentDate.weekday === 6 || day === daysInMonth) {
-    console.log(dayString);
+  if (currentDate.weekday === 6 || i === daysInMonth) {
+    process.stdout.write(dayString + "\n");
     dayString = "";
   } else {
     dayString += " ";
   }
+  currentDate = currentDate.plus({ days: 1 });
 }
 
-console.log();
+if (currentDate.weekday !== 0) {
+  process.stdout.write("");
+}
