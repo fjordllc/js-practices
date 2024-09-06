@@ -28,7 +28,7 @@ const startDay = currentDate.weekday % 7;
 let weekCount = 0;
 let lastLineNoNewline = false;
 
-process.stdout.write(" ".repeat(startDay * 3));
+process.stdout.write(`${" ".repeat(startDay * 3)}`);
 
 for (
   ;
