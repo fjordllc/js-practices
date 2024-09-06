@@ -23,19 +23,17 @@ const space = 6;
 console.log(`${" ".repeat(space)}${header}`);
 console.log("日 月 火 水 木 金 土");
 
-let currentDate = luxon.DateTime.local(year, month, 1);
-const startDay = currentDate.weekday % 7;
+const startDay = luxon.DateTime.local(year, month, 1).weekday % 7;
 let dayString = " ".repeat(startDay * 3);
-const daysInMonth = currentDate.daysInMonth;
 let weekCount = 0;
 let lastLineNoNewline = false;
 
-for (let i = 1; i <= daysInMonth; i++) {
+for (let currentDate =luxon.DateTime.local(year, month, 1); currentDate.month === month; currentDate = currentDate.plus({ days: 1 })) {
   dayString += currentDate.day.toString().padStart(2, " ");
 
-  if (currentDate.weekday === 6 || i === daysInMonth) {
+  if (currentDate.weekday === 6 || currentDate.plus({ days: 1 }).month !== month) {
     weekCount++;
-    if (i === daysInMonth && weekCount === 6) {
+    if (currentDate.plus({ days: 1 }).month !== month && weekCount === 6) {
       process.stdout.write(dayString);
       lastLineNoNewline = true;
     } else {
@@ -45,8 +43,6 @@ for (let i = 1; i <= daysInMonth; i++) {
   } else {
     dayString += " ";
   }
-
-  currentDate = currentDate.plus({ days: 1 });
 }
 
 if (weekCount < 6 && !lastLineNoNewline) {
