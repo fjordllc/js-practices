@@ -19,19 +19,16 @@ if (year < 1970 || year > 2100) {
 }
 
 const header = `${month}月 ${year}`;
-const space = 6;
-console.log(`${" ".repeat(space)}${header}`);
+console.log(`${" ".repeat(6)}${header}`);
 console.log("日 月 火 水 木 金 土");
 
 let currentDate = luxon.DateTime.local(year, month, 1);
 const startDay = currentDate.weekday % 7;
-let weekCount = 0;
-let lastLineNoNewline = false;
-
 process.stdout.write(`${" ".repeat(startDay * 3)}`);
+let weekCount = 0;
 
 for (
-  ;
+  currentDate = luxon.DateTime.local(year, month, 1);
   currentDate.month === month;
   currentDate = currentDate.plus({ days: 1 })
 ) {
@@ -41,21 +38,13 @@ for (
     currentDate.weekday === 6 ||
     currentDate.plus({ days: 1 }).month !== month
   ) {
-    if (currentDate.plus({ days: 1 }).month !== month && weekCount === 5) {
-      lastLineNoNewline = true;
-    } else {
-      console.log();
-    }
+    console.log();
     weekCount++;
   } else {
     process.stdout.write(" ");
   }
 }
 
-if (weekCount < 6 && !lastLineNoNewline) {
-  console.log();
-}
-
-if (lastLineNoNewline) {
+if (weekCount < 6) {
   console.log();
 }
