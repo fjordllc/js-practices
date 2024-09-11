@@ -18,8 +18,7 @@ if (year < 1970 || year > 2100) {
   process.exit(1);
 }
 
-const header = `${month}月 ${year}`;
-console.log(`${" ".repeat(6)}${header}`);
+console.log(`${" ".repeat(6)}${month}月 ${year}`);
 console.log("日 月 火 水 木 金 土");
 
 let currentDate = luxon.DateTime.local(year, month, 1);
