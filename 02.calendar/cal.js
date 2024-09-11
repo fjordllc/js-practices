@@ -22,9 +22,8 @@ console.log(`${" ".repeat(6)}${month}月 ${year}`);
 console.log("日 月 火 水 木 金 土");
 
 let currentDate = luxon.DateTime.local(year, month, 1);
-const startDay = currentDate.weekday % 7;
-process.stdout.write(`${" ".repeat(startDay * 3)}`);
-
+const firstDayOfWeek = currentDate.weekday % 7;
+process.stdout.write(" ".repeat(firstDayOfWeek * 3));
 const endOfMonth = currentDate.endOf("month");
 
 for (
@@ -34,10 +33,7 @@ for (
 ) {
   process.stdout.write(currentDate.day.toString().padStart(2, " "));
 
-  if (
-    currentDate.weekday === 6 ||
-    currentDate.plus({ days: 1 }) > endOfMonth
-  ) {
+  if (currentDate.weekday === 6 || currentDate.plus({ days: 1 }) > endOfMonth) {
     console.log();
   } else {
     process.stdout.write(" ");
