@@ -21,13 +21,12 @@ if (year < 1970 || year > 2100) {
 console.log(`${" ".repeat(6)}${month}月 ${year}`);
 console.log("日 月 火 水 木 金 土");
 
-let currentDate = luxon.DateTime.local(year, month, 1);
 const startDay = currentDate.weekday % 7;
 process.stdout.write(`${" ".repeat(startDay * 3)}`);
 let weekCount = 0;
 
 for (
-  currentDate = luxon.DateTime.local(year, month, 1);
+  let currentDate = luxon.DateTime.local(year, month, 1);
   currentDate.month === month;
   currentDate = currentDate.plus({ days: 1 })
 ) {
