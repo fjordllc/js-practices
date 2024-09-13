@@ -28,7 +28,7 @@ process.stdout.write(" ".repeat(firstDayOfWeek * 3));
 const lastDayOfMonth = firstDayOfMonth.endOf("month");
 
 for (
-  let currentDay = firstDayOfMonth;
+  let currentDay = firstDayOfMonth.plus({ days: 0 });
   currentDay <= lastDayOfMonth;
   currentDay = currentDay.plus({ days: 1 })
 ) {
