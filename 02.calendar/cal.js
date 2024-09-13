@@ -28,13 +28,13 @@ process.stdout.write(" ".repeat(firstDayOfWeek * 3));
 const lastDayOfMonth = firstDayOfMonth.endOf("month");
 
 for (
-  let currentDay = firstDayOfMonth.plus({ days: 0 });
+  let currentDay = firstDayOfMonth;
   currentDay <= lastDayOfMonth;
   currentDay = currentDay.plus({ days: 1 })
 ) {
   process.stdout.write(currentDay.day.toString().padStart(2, " "));
 
-  const isLastDayOfMonth = currentDay.hasSame(lastDayOfMonth,`day`);
+  const isLastDayOfMonth = currentDay.hasSame(lastDayOfMonth, `day`);
   if (currentDay.weekday === 6 || isLastDayOfMonth) {
     console.log();
   } else {
