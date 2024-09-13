@@ -34,7 +34,7 @@ for (
 ) {
   process.stdout.write(currentDay.day.toString().padStart(2, " "));
 
-  const isLastDayOfMonth = currentDay.plus({ days: 1 }) > lastDayOfMonth;
+  const isLastDayOfMonth = currentDay.hasSame(lastDayOfMonth,`day`);
   if (currentDay.weekday === 6 || isLastDayOfMonth) {
     console.log();
   } else {
