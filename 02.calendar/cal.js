@@ -21,21 +21,20 @@ if (year < 1970 || year > 2100) {
 console.log(`${" ".repeat(6)}${month}月 ${year}`);
 console.log("日 月 火 水 木 金 土");
 
-const firstDateOfMonth = luxon.DateTime.local(year, month, 1);
-const firstDayOfWeek = firstDateOfMonth.weekday % 7;
-const lastDateOfMonth = firstDateOfMonth.endOf("month");
+const firstDate = luxon.DateTime.local(year, month, 1);
+const lastDate = firstDate.endOf("month");
 
-process.stdout.write(" ".repeat(firstDayOfWeek * 3));
+process.stdout.write(" ".repeat((firstDate.weekday === 7 ? 0 :firstDate.weekday) * 3));
 
 for (
-  let currentDay = firstDateOfMonth;
-  currentDay <= lastDateOfMonth;
-  currentDay = currentDay.plus({ days: 1 })
+  let currentDate = firstDate;
+  currentDate <= lastDate;
+  currentDate = currentDate.plus({ days: 1 })
 ) {
-  process.stdout.write(currentDay.day.toString().padStart(2, " "));
+  process.stdout.write(currentDate.day.toString().padStart(2, " "));
 
-  const isLastDayOfMonth = currentDay.hasSame(lastDateOfMonth, "day");
-  if (currentDay.weekday === 6 || isLastDayOfMonth) {
+  const isLastDate = currentDate.hasSame(lastDate, "day");
+  if (currentDate.weekday === 6 || isLastDate) {
     console.log();
   } else {
     process.stdout.write(" ");
