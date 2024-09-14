@@ -24,17 +24,21 @@ console.log("日 月 火 水 木 金 土");
 const firstDate = luxon.DateTime.local(year, month, 1);
 const lastDate = firstDate.endOf("month");
 
-process.stdout.write(" ".repeat((firstDate.weekday === 7 ? 0 :firstDate.weekday) * 3));
+process.stdout.write(
+  " ".repeat((firstDate.weekday === 7 ? 0 : firstDate.weekday) * 3),
+);
 
 for (
   let currentDate = firstDate;
   currentDate <= lastDate;
   currentDate = currentDate.plus({ days: 1 })
 ) {
+  const isSaturday = currentDate.weekday === 6;
+  const isLastDate = currentDate.hasSame(lastDate, "day");
+
   process.stdout.write(currentDate.day.toString().padStart(2, " "));
 
-  const isLastDate = currentDate.hasSame(lastDate, "day");
-  if (currentDate.weekday === 6 || isLastDate) {
+  if (isSaturday || isLastDate) {
     console.log();
   } else {
     process.stdout.write(" ");
