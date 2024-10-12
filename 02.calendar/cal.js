@@ -13,11 +13,12 @@ function noOption() {
     const week = 'Su Mo Tu We Th Fr Sa'
     let nowMonthFirst = new Date(year, month, 1);
     const nowMonthLast = new Date(year, month + 1, 0);
+    const firstDaySpace = 3 * nowMonthFirst.getDay()
 
     console.log('  ', monthName, year)
     console.log(week)
 
-    // 次：月の始まりまでスペースを出力する
+    process.stdout.write(" ".repeat(firstDaySpace)); // 月初のスペース出力
     while (nowMonthFirst <= nowMonthLast) {
         process.stdout.write(nowMonthFirst.getDate() + " ");
         // 1桁の場合スペース追加
