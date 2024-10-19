@@ -1,14 +1,15 @@
 #!/usr/bin/env node
+import minimist from "minimist";
 
-// 引数を見て、どのメソッドを呼ぶか分岐する
-noOption();
+const argv = minimist(process.argv.slice(2));
 
-//引数なしの時に呼び出すメソッド
-function noOption() {
-    const currentDate = new Date()
+let year = argv.y
+let month = argv.m - 1
 
-    const year = currentDate.getFullYear()
-    const month = currentDate.getMonth()
+noOption(year, month);
+
+function noOption(year, month) {
+    const currentDate = new Date(year, month)
     const monthName = currentDate.toLocaleDateString('default', { month: 'long'})
     const week = 'Su Mo Tu We Th Fr Sa'
     let nowMonthFirst = new Date(year, month, 1);
@@ -30,14 +31,4 @@ function noOption() {
         }
         nowMonthFirst.setDate(nowMonthFirst.getDate()+ 1);
     }
-}
-
-
-//mのみ引数ありの時に呼び出すメソッド
-function mOption() {
-}
-
-
-//m,yどちらも指定された際に呼び出すメソッド
-function ryouhouOption() {
 }
