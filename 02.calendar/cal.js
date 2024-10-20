@@ -3,13 +3,25 @@ import minimist from "minimist";
 
 const argv = minimist(process.argv.slice(2));
 
-let year = argv.y
-let month = argv.m - 1
+let currentDate = new Date()
+let year;
+let month;
+if (argv.y === undefined && argv.m === undefined) {
+    year = currentDate.getFullYear()
+    month = currentDate.getMonth()
+} else if (argv.y === undefined) {
+    year = currentDate.getFullYear()
+} else if (argv.m === undefined) {
+    month = currentDate.getMonth()
+} else {
+    currentDate = new Date(argv.y, argv.m)
+    year = argv.y
+    month = argv.m - 1
+}
 
-noOption(year, month);
+noOption(currentDate);
 
-function noOption(year, month) {
-    const currentDate = new Date(year, month)
+function noOption(currentDate) {
     const monthName = currentDate.toLocaleDateString('default', { month: 'long'})
     const week = 'Su Mo Tu We Th Fr Sa'
     let nowMonthFirst = new Date(year, month, 1);
