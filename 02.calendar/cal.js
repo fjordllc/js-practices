@@ -3,7 +3,7 @@ import minimist from "minimist";
 
 const argv = minimist(process.argv.slice(2));
 
-let currentDate = new Date()
+let currentDate = new Date();
 let year;
 let month;
 if (argv.y === undefined && argv.m === undefined) {
@@ -39,7 +39,7 @@ function noOption(currentDate) {
             process.stdout.write(" ")
         }
         if (nowMonthFirst.getDay() === 6) {
-            console.log("\n")
+            process.stdout.write("\n")
         }
         nowMonthFirst.setDate(nowMonthFirst.getDate()+ 1);
     }
