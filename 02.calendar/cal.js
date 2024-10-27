@@ -4,20 +4,8 @@ import minimist from "minimist";
 const argv = minimist(process.argv.slice(2));
 
 let currentDate = new Date();
-let year;
-let month;
-if (argv.y === undefined && argv.m === undefined) {
-    year = currentDate.getFullYear()
-    month = currentDate.getMonth()
-} else if (argv.y === undefined) {
-    year = currentDate.getFullYear()
-} else if (argv.m === undefined) {
-    month = currentDate.getMonth()
-} else {
-    currentDate = new Date(argv.y, argv.m)
-    year = argv.y
-    month = argv.m - 1
-}
+let year = argv.y === undefined ? currentDate.getFullYear() : argv.y;
+let month = argv.m === undefined ? currentDate.getMonth() : argv.m;
 
 noOption(currentDate);
 
