@@ -5,12 +5,13 @@ const argv = minimist(process.argv.slice(2));
 
 let currentDate = new Date();
 let year = argv.y === undefined ? currentDate.getFullYear() : argv.y;
-let month = argv.m === undefined ? currentDate.getMonth() : argv.m;
+let month = argv.m === undefined ? currentDate.getMonth() : argv.m - 1;
+let DateInfo = argv.m === undefined ? new Date() : new Date(year, month);
 
-noOption(currentDate);
+noOption(DateInfo);
 
-function noOption(currentDate) {
-    const monthName = currentDate.toLocaleDateString('default', { month: 'long'})
+function noOption(DateInfo) {
+    const monthName = DateInfo.toLocaleDateString('default', { month: 'long'})
     const week = 'Su Mo Tu We Th Fr Sa'
     let nowMonthFirst = new Date(year, month, 1);
     const nowMonthLast = new Date(year, month + 1, 0);
