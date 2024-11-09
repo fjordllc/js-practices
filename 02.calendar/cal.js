@@ -12,24 +12,24 @@ printCalendar(DateInfo);
 
 function printCalendar(DateInfo) {
   const monthName = DateInfo.toLocaleDateString("default", { month: "long" });
-  const week = "Su Mo Tu We Th Fr Sa";
-  const nowMonthFirst = new Date(year, month, 1);
-  const nowMonthLast = new Date(year, month + 1, 0);
-  const firstDaySpace = 3 * nowMonthFirst.getDay();
+  const weekHeader = "Su Mo Tu We Th Fr Sa";
+  const firstDayOfMonth = new Date(year, month, 1);
+  const lastDayOfMonth = new Date(year, month + 1, 0);
+  const firstDaySpace = 3 * firstDayOfMonth.getDay();
 
   console.log("  ", monthName, year);
-  console.log(week);
+  console.log(weekHeader);
 
   process.stdout.write(" ".repeat(firstDaySpace)); // 月初のスペース出力
-  while (nowMonthFirst <= nowMonthLast) {
-    process.stdout.write(nowMonthFirst.getDate() + " ");
+  while (firstDayOfMonth <= lastDayOfMonth) {
+    process.stdout.write(firstDayOfMonth.getDate() + " ");
     // 1桁の場合スペース追加
-    if (String(nowMonthFirst.getDate()).length === 1) {
+    if (String(firstDayOfMonth.getDate()).length === 1) {
       process.stdout.write(" ");
     }
-    if (nowMonthFirst.getDay() === 6) {
+    if (firstDayOfMonth.getDay() === 6) {
       process.stdout.write("\n");
     }
-    nowMonthFirst.setDate(nowMonthFirst.getDate() + 1);
+    firstDayOfMonth.setDate(firstDayOfMonth.getDate() + 1);
   }
 }
