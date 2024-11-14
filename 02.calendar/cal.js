@@ -22,11 +22,9 @@ function printCalendar(DateInfo) {
 
   process.stdout.write(" ".repeat(firstDaySpace)); // 月初のスペース出力
   while (firstDayOfMonth <= lastDayOfMonth) {
-    process.stdout.write(firstDayOfMonth.getDate() + " ");
-    // 1桁の場合スペース追加
-    if (String(firstDayOfMonth.getDate()).length === 1) {
-      process.stdout.write(" ");
-    }
+    process.stdout.write(
+      String(firstDayOfMonth.getDate()).padStart(2, " ") + " ",
+    );
     if (firstDayOfMonth.getDay() === 6) {
       process.stdout.write("\n");
     }
