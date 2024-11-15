@@ -25,6 +25,9 @@ function printCalendar(DateInfo) {
     process.stdout.write(
       String(firstDayOfMonth.getDate()).padStart(2, " ") + " ",
     );
+    if (firstDayOfMonth.getDate() === lastDayOfMonth.getDate()) {
+      process.stdout.write("\n");
+    }
     if (firstDayOfMonth.getDay() === 6) {
       process.stdout.write("\n");
     }
