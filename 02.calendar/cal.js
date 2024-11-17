@@ -15,14 +15,14 @@ function printCalendar(DateInfo) {
   const weekHeader = "Su Mo Tu We Th Fr Sa";
   const firstDayOfMonth = new Date(year, month, 1);
   const lastDayOfMonth = new Date(year, month + 1, 0);
-  const firstDaySpace = 3 * firstDayOfMonth.getDay();
+  const emptyDaysBeforeStart = 3 * firstDayOfMonth.getDay();
   const calendarWidth = 20;
   const padding = (calendarWidth - String(`${monthName} ${year}`).length) / 2;
 
   console.log(`${" ".repeat(padding)}${monthName} ${year}`);
   console.log(weekHeader);
 
-  process.stdout.write(" ".repeat(firstDaySpace)); // 月初のスペース出力
+  process.stdout.write(" ".repeat(emptyDaysBeforeStart));
   while (firstDayOfMonth <= lastDayOfMonth) {
     process.stdout.write(
       String(firstDayOfMonth.getDate()).padStart(2, " ") + " ",
