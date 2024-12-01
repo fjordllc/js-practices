@@ -1,17 +1,16 @@
 #!/usr/bin/env node
+
 import minimist from "minimist";
 
 const argv = minimist(process.argv.slice(2));
 
 const currentDate = new Date();
-const year = argv.y === undefined ? currentDate.getFullYear() : argv.y;
+const year = argv.y ?? currentDate.getFullYear();
 const month = argv.m === undefined ? currentDate.getMonth() : argv.m - 1;
-const DateInfo = argv.m === undefined ? new Date() : new Date(year, month);
+const currentOrSpecifiedDate = argv.m === undefined ? new Date() : new Date(year, month);
 
-printCalendar(DateInfo);
-
-function printCalendar(DateInfo) {
-  const monthName = DateInfo.toLocaleDateString("default", { month: "long" });
+function printCalendar(currentOrSpecifiedDate) {
+  const monthName = currentOrSpecifiedDate.toLocaleDateString("default", { month: "long" });
   const weekHeader = "Su Mo Tu We Th Fr Sa";
   const firstDayOfMonth = new Date(year, month, 1);
   const lastDayOfMonth = new Date(year, month + 1, 0);
@@ -36,3 +35,5 @@ function printCalendar(DateInfo) {
     firstDayOfMonth.setDate(firstDayOfMonth.getDate() + 1);
   }
 }
+
+printCalendar(currentOrSpecifiedDate);
