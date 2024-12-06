@@ -9,7 +9,7 @@ const year = argv.y ?? currentDate.getFullYear();
 const month = argv.m === undefined ? currentDate.getMonth() : argv.m - 1;
 const currentOrSpecifiedDate = argv.m === undefined ? new Date() : new Date(year, month);
 
-function printCalendar(currentOrSpecifiedDate) {
+function printCalendar(currentOrSpecifiedDate, year, month) {
   const monthName = currentOrSpecifiedDate.toLocaleDateString("default", { month: "long" });
   const weekHeader = "Su Mo Tu We Th Fr Sa";
   const firstDayOfMonth = new Date(year, month, 1);
@@ -36,4 +36,4 @@ function printCalendar(currentOrSpecifiedDate) {
   }
 }
 
-printCalendar(currentOrSpecifiedDate);
+printCalendar(currentOrSpecifiedDate, year, month);
