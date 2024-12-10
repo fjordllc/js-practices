@@ -16,21 +16,25 @@ function printCalendar(currentOrSpecifiedDate, year, month) {
   const lastDayOfMonth = new Date(year, month + 1, 0);
   const emptyDaysBeforeStart = 3 * firstDayOfMonth.getDay();
   const calendarWidth = 20;
-  const padding = (calendarWidth - String(`${monthName} ${year}`).length) / 2;
+  const padding = (calendarWidth - (`${monthName} ${year}`).length) / 2;
 
   console.log(`${" ".repeat(padding)}${monthName} ${year}`);
   console.log(weekHeader);
 
   process.stdout.write(" ".repeat(emptyDaysBeforeStart));
   while (firstDayOfMonth <= lastDayOfMonth) {
-    process.stdout.write(
-      String(firstDayOfMonth.getDate()).padStart(2, " ") + " ",
-    );
-    if (
-      firstDayOfMonth.getDay() === 6 ||
-      firstDayOfMonth.getDate() === lastDayOfMonth.getDate()
-    ) {
+    const isLastDay = firstDayOfMonth.getDate() === lastDayOfMonth.getDate();
+    const isWeekEnd = firstDayOfMonth.getDay() === 6;
+
+    if (isWeekEnd ||isLastDay) {
+      process.stdout.write(
+        `${firstDayOfMonth.getDate().toString().padStart(2, ' ')}`
+        );
       process.stdout.write("\n");
+    } else {
+      process.stdout.write(
+        `${firstDayOfMonth.getDate().toString().padStart(2, ' ')} `
+        );
     }
     firstDayOfMonth.setDate(firstDayOfMonth.getDate() + 1);
   }
