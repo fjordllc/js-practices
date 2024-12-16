@@ -17,27 +17,25 @@ function printCalendar(currentOrSpecifiedDate, year, month) {
   const emptyDaysBeforeStart = 3 * firstDayOfMonth.getDay();
   const calendarWidth = 20;
   const padding = (calendarWidth - (`${monthName} ${year}`).length) / 2;
-  let currentDateInMonth = new Date(year, month, 1);
 
   console.log(`${" ".repeat(padding)}${monthName} ${year}`);
   console.log(weekHeader);
 
   process.stdout.write(" ".repeat(emptyDaysBeforeStart));
-  while (currentDateInMonth <= lastDayOfMonth) {
+  for (let currentDateInMonth = new Date(year, month, 1); currentDateInMonth <= lastDayOfMonth; currentDateInMonth.setDate(currentDateInMonth.getDate() + 1)) {
     const isLastDay = currentDateInMonth.getDate() === lastDayOfMonth.getDate();
-    const isWeekEnd = currentDateInMonth.getDay() === 6;
+    const isSaturday = currentDateInMonth.getDay() === 6;
 
-    if (isWeekEnd || isLastDay) {
+    if (isSaturday || isLastDay) {
       process.stdout.write(
         `${currentDateInMonth.getDate().toString().padStart(2, ' ')}`
-        );
+      );
       process.stdout.write("\n");
     } else {
       process.stdout.write(
         `${currentDateInMonth.getDate().toString().padStart(2, ' ')} `
-        );
+      );
     }
-    currentDateInMonth.setDate(currentDateInMonth.getDate() + 1);
   }
 }
 
