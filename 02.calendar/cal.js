@@ -7,34 +7,41 @@ const argv = minimist(process.argv.slice(2));
 const currentDate = new Date();
 const year = argv.y ?? currentDate.getFullYear();
 const month = argv.m === undefined ? currentDate.getMonth() : argv.m - 1;
-const currentOrSpecifiedDate = argv.m === undefined ? new Date() : new Date(year, month);
+const currentOrSpecifiedDate =
+  argv.m === undefined ? new Date() : new Date(year, month);
 
 function printCalendar(currentOrSpecifiedDate, year, month) {
-  const monthName = currentOrSpecifiedDate.toLocaleDateString("default", { month: "long" });
-  const weekHeader = "Su Mo Tu We Th Fr Sa";
-  const firstDayOfMonth = new Date(year, month, 1);
-  const lastDayOfMonth = new Date(year, month + 1, 0);
-  const emptyDaysBeforeStart = 3 * firstDayOfMonth.getDay();
+  const monthName = currentOrSpecifiedDate.toLocaleDateString("default", {
+    month: "long",
+  });
   const calendarWidth = 20;
-  const padding = (calendarWidth - (`${monthName} ${year}`).length) / 2;
-
+  const padding = (calendarWidth - `${monthName} ${year}`.length) / 2;
   console.log(`${" ".repeat(padding)}${monthName} ${year}`);
+
+  const weekHeader = "Su Mo Tu We Th Fr Sa";
   console.log(weekHeader);
 
+  const firstDayOfMonth = new Date(year, month, 1);
+  const emptyDaysBeforeStart = 3 * firstDayOfMonth.getDay();
   process.stdout.write(" ".repeat(emptyDaysBeforeStart));
-  for (let currentDateInMonth = new Date(year, month, 1); currentDateInMonth <= lastDayOfMonth; currentDateInMonth.setDate(currentDateInMonth.getDate() + 1)) {
+
+  const lastDayOfMonth = new Date(year, month + 1, 0);
+  for (
+    let currentDateInMonth = new Date(year, month, 1);
+    currentDateInMonth <= lastDayOfMonth;
+    currentDateInMonth.setDate(currentDateInMonth.getDate() + 1)
+  ) {
     const isLastDay = currentDateInMonth.getDate() === lastDayOfMonth.getDate();
     const isSaturday = currentDateInMonth.getDay() === 6;
 
+    process.stdout.write(
+      `${currentDateInMonth.getDate().toString().padStart(2, " ")}`,
+    );
+
     if (isSaturday || isLastDay) {
-      process.stdout.write(
-        `${currentDateInMonth.getDate().toString().padStart(2, ' ')}`
-      );
       process.stdout.write("\n");
     } else {
-      process.stdout.write(
-        `${currentDateInMonth.getDate().toString().padStart(2, ' ')} `
-      );
+      process.stdout.write(" ");
     }
   }
 }
