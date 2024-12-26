@@ -4,7 +4,7 @@ import minimist from "minimist";
 const argv = minimist(process.argv.slice(2));
 
 const currentDate = new Date();
-const year = argv.y === undefined ? currentDate.getFullYear() : argv.y;
+const year = argv.y ?? currentDate.getFullYear();
 const month = argv.m === undefined ? currentDate.getMonth() : argv.m - 1;
 const DateInfo = argv.m === undefined ? new Date() : new Date(year, month);
 
