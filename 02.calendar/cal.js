@@ -20,7 +20,7 @@ function printCalendar(currentOrSpecifiedDate) {
   const lastDayOfMonth = new Date(year, month + 1, 0);
   const firstDaySpace = 3 * firstDayOfMonth.getDay();
   const calendarWidth = 20;
-  const padding = (calendarWidth - String(`${monthName} ${year}`).length) / 2;
+  const padding = (calendarWidth - `${monthName} ${year}`.length) / 2;
 
   console.log(`${" ".repeat(padding)}${monthName} ${year}`);
   console.log(weekHeader);
