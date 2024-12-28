@@ -9,7 +9,7 @@ const month = argv.m === undefined ? currentDate.getMonth() : argv.m - 1;
 const currentOrSpecifiedDate =
   argv.m === undefined ? new Date() : new Date(year, month);
 
-printCalendar(currentOrSpecifiedDate);
+printCalendar(currentOrSpecifiedDate, year, month);
 
 function printCalendar(currentOrSpecifiedDate) {
   const monthName = currentOrSpecifiedDate.toLocaleDateString("default", {
