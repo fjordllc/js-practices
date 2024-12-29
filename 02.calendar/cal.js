@@ -21,25 +21,26 @@ function printCalendar(currentOrSpecifiedDate) {
   const firstDaySpace = 3 * firstDayOfMonth.getDay();
   const calendarWidth = 20;
   const padding = (calendarWidth - `${monthName} ${year}`.length) / 2;
+  let currentDateInMonth = new Date(year, month, 1);
 
   console.log(`${" ".repeat(padding)}${monthName} ${year}`);
   console.log(weekHeader);
 
   process.stdout.write(" ".repeat(firstDaySpace)); // 月初のスペース出力
-  while (firstDayOfMonth <= lastDayOfMonth) {
-    const isLastDay = firstDayOfMonth.getDate() === lastDayOfMonth.getDate();
-    const isWeekEnd = firstDayOfMonth.getDay() === 6;
+  while (currentDateInMonth <= lastDayOfMonth) {
+    const isLastDay = currentDateInMonth.getDate() === lastDayOfMonth.getDate();
+    const isWeekEnd = currentDateInMonth.getDay() === 6;
 
     if (isWeekEnd || isLastDay) {
       process.stdout.write(
-        `${firstDayOfMonth.getDate().toString().padStart(2, " ")}`,
+        `${currentDateInMonth.getDate().toString().padStart(2, " ")}`,
       );
       process.stdout.write("\n");
     } else {
       process.stdout.write(
-        `${firstDayOfMonth.getDate().toString().padStart(2, " ")} `,
+        `${currentDateInMonth.getDate().toString().padStart(2, " ")} `,
       );
     }
-    firstDayOfMonth.setDate(firstDayOfMonth.getDate() + 1);
+    currentDateInMonth.setDate(currentDateInMonth.getDate() + 1);
   }
 }
