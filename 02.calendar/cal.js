@@ -33,9 +33,9 @@ function printCalendar(currentOrSpecifiedDate) {
     currentDateInMonth.setDate(currentDateInMonth.getDate() + 1)
   ) {
     const isLastDay = currentDateInMonth.getDate() === lastDayOfMonth.getDate();
-    const isWeekEnd = currentDateInMonth.getDay() === 6;
+    const isSaturday = currentDateInMonth.getDay() === 6;
 
-    if (isWeekEnd || isLastDay) {
+    if (isSaturday || isLastDay) {
       process.stdout.write(
         `${currentDateInMonth.getDate().toString().padStart(2, " ")}`,
       );
