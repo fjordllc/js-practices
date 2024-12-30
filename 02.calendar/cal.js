@@ -27,7 +27,11 @@ function printCalendar(currentOrSpecifiedDate) {
   console.log(weekHeader);
 
   process.stdout.write(" ".repeat(firstDaySpace)); // 月初のスペース出力
-  while (currentDateInMonth <= lastDayOfMonth) {
+  for (
+    let currentDateInMonth = new Date(year, month, 1);
+    currentDateInMonth <= lastDayOfMonth;
+    currentDateInMonth.setDate(currentDateInMonth.getDate() + 1)
+  ) {
     const isLastDay = currentDateInMonth.getDate() === lastDayOfMonth.getDate();
     const isWeekEnd = currentDateInMonth.getDay() === 6;
 
@@ -41,6 +45,5 @@ function printCalendar(currentOrSpecifiedDate) {
         `${currentDateInMonth.getDate().toString().padStart(2, " ")} `,
       );
     }
-    currentDateInMonth.setDate(currentDateInMonth.getDate() + 1);
   }
 }
