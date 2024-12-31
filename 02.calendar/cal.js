@@ -15,18 +15,18 @@ function printCalendar(currentOrSpecifiedDate) {
   const monthName = currentOrSpecifiedDate.toLocaleDateString("default", {
     month: "long",
   });
-  const weekHeader = "Su Mo Tu We Th Fr Sa";
-  const firstDayOfMonth = new Date(year, month, 1);
-  const lastDayOfMonth = new Date(year, month + 1, 0);
-  const emptyDaysBeforeStart = 3 * firstDayOfMonth.getDay();
   const calendarWidth = 20;
   const padding = (calendarWidth - `${monthName} ${year}`.length) / 2;
-  let currentDateInMonth = new Date(year, month, 1);
-
   console.log(`${" ".repeat(padding)}${monthName} ${year}`);
+
+  const weekHeader = "Su Mo Tu We Th Fr Sa";
   console.log(weekHeader);
 
+  const firstDayOfMonth = new Date(year, month, 1);
+  const emptyDaysBeforeStart = 3 * firstDayOfMonth.getDay();
   process.stdout.write(" ".repeat(emptyDaysBeforeStart)); // 月初のスペース出力
+
+  const lastDayOfMonth = new Date(year, month + 1, 0);
   for (
     let currentDateInMonth = new Date(year, month, 1);
     currentDateInMonth <= lastDayOfMonth;
