@@ -18,7 +18,7 @@ function printCalendar(currentOrSpecifiedDate) {
   const weekHeader = "Su Mo Tu We Th Fr Sa";
   const firstDayOfMonth = new Date(year, month, 1);
   const lastDayOfMonth = new Date(year, month + 1, 0);
-  const firstDaySpace = 3 * firstDayOfMonth.getDay();
+  const emptyDaysBeforeStart = 3 * firstDayOfMonth.getDay();
   const calendarWidth = 20;
   const padding = (calendarWidth - `${monthName} ${year}`.length) / 2;
   let currentDateInMonth = new Date(year, month, 1);
@@ -26,7 +26,7 @@ function printCalendar(currentOrSpecifiedDate) {
   console.log(`${" ".repeat(padding)}${monthName} ${year}`);
   console.log(weekHeader);
 
-  process.stdout.write(" ".repeat(firstDaySpace)); // 月初のスペース出力
+  process.stdout.write(" ".repeat(emptyDaysBeforeStart)); // 月初のスペース出力
   for (
     let currentDateInMonth = new Date(year, month, 1);
     currentDateInMonth <= lastDayOfMonth;
