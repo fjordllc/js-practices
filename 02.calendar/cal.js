@@ -35,15 +35,14 @@ function printCalendar(currentOrSpecifiedDate) {
     const isLastDay = currentDateInMonth.getDate() === lastDayOfMonth.getDate();
     const isSaturday = currentDateInMonth.getDay() === 6;
 
+    process.stdout.write(
+      `${currentDateInMonth.getDate().toString().padStart(2, " ")}`,
+    );
+
     if (isSaturday || isLastDay) {
-      process.stdout.write(
-        `${currentDateInMonth.getDate().toString().padStart(2, " ")}`,
-      );
       process.stdout.write("\n");
     } else {
-      process.stdout.write(
-        `${currentDateInMonth.getDate().toString().padStart(2, " ")} `,
-      );
+      process.stdout.write(" ");
     }
   }
 }
