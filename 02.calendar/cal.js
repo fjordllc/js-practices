@@ -7,8 +7,9 @@ function printCalendar(currentOrSpecifiedDate, year, month) {
     month: "long",
   });
   const calendarWidth = 20;
-  const padding = (calendarWidth - `${monthName} ${year}`.length) / 2;
-  console.log(`${" ".repeat(padding)}${monthName} ${year}`);
+  const calendarHeader = `${monthName} ${year}`;
+  const padding = (calendarWidth - calendarHeader.length) / 2;
+  console.log(`${" ".repeat(padding)}${calendarHeader}`);
 
   const weekHeader = "Su Mo Tu We Th Fr Sa";
   console.log(weekHeader);
