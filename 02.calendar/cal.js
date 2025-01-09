@@ -2,8 +2,8 @@
 
 import minimist from "minimist";
 
-function printCalendar(currentOrSpecifiedDate, year, month) {
-  const monthName = currentOrSpecifiedDate.toLocaleDateString("default", {
+function printCalendar(date, year, month) {
+  const monthName = date.toLocaleDateString("default", {
     month: "long",
   });
   const calendarWidth = 20;
@@ -43,7 +43,6 @@ const argv = minimist(process.argv.slice(2));
 const currentDate = new Date();
 const year = argv.y ?? currentDate.getFullYear();
 const month = argv.m === undefined ? currentDate.getMonth() : argv.m - 1;
-const currentOrSpecifiedDate =
-  argv.m === undefined ? new Date() : new Date(year, month);
+const date = argv.m === undefined ? currentDate : new Date(year, month);
 
-printCalendar(currentOrSpecifiedDate, year, month);
+printCalendar(date, year, month);
