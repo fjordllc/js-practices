@@ -8,23 +8,24 @@ function printCalendar(date, year, month) {
   });
   const calendarWidth = 20;
   const calendarHeader = `${monthName} ${year}`;
-  const padding = (calendarWidth - calendarHeader.length) / 2;
-  console.log(`${" ".repeat(padding)}${calendarHeader}`);
+  const spacesToCenter = (calendarWidth - calendarHeader.length) / 2;
+  console.log(`${" ".repeat(spacesToCenter)}${calendarHeader}`);
 
   const weekHeader = "Su Mo Tu We Th Fr Sa";
   console.log(weekHeader);
 
-  const firstDayOfMonth = new Date(year, month, 1);
-  const emptyDaysBeforeStart = 3 * firstDayOfMonth.getDay();
-  process.stdout.write(" ".repeat(emptyDaysBeforeStart));
+  const firstDateOfMonth = new Date(year, month, 1);
+  const spacesBeforeFirstDay = 3 * firstDateOfMonth.getDay();
+  process.stdout.write(" ".repeat(spacesBeforeFirstDay));
 
-  const lastDayOfMonth = new Date(year, month + 1, 0);
+  const lastDateOfMonth = new Date(year, month + 1, 0);
   for (
     let currentDateInMonth = new Date(year, month, 1);
-    currentDateInMonth <= lastDayOfMonth;
+    currentDateInMonth <= lastDateOfMonth;
     currentDateInMonth.setDate(currentDateInMonth.getDate() + 1)
   ) {
-    const isLastDay = currentDateInMonth.getDate() === lastDayOfMonth.getDate();
+    const isLastDay =
+      currentDateInMonth.getDate() === lastDateOfMonth.getDate();
     const isSaturday = currentDateInMonth.getDay() === 6;
 
     process.stdout.write(
