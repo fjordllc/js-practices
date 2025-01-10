@@ -20,7 +20,7 @@ function printCalendar(date, year, month) {
 
   const lastDateOfMonth = new Date(year, month + 1, 0);
   for (
-    let currentDateInMonth = new Date(year, month, 1);
+    let currentDateInMonth = firstDateOfMonth;
     currentDateInMonth <= lastDateOfMonth;
     currentDateInMonth.setDate(currentDateInMonth.getDate() + 1)
   ) {
