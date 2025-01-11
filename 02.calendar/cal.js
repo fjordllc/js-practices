@@ -29,7 +29,7 @@ function printCalendar(date) {
     const isSaturday = currentDateInMonth.getDay() === 6;
 
     process.stdout.write(
-      `${currentDateInMonth.getDate().toString().padStart(2, " ")}`,
+      currentDateInMonth.getDate().toString().padStart(2, " "),
     );
 
     if (isSaturday || isLastDay) {
