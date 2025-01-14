@@ -42,6 +42,7 @@ function printCalendar(date) {
 
 const argv = minimist(process.argv.slice(2));
 const currentDate = new Date();
-const date = argv.m === undefined ? currentDate : new Date(argv.y, argv.m - 1);
+const year = argv.y ?? currentDate.getFullYear();
+const date = argv.m === undefined ? currentDate : new Date(year, argv.m - 1);
 
 printCalendar(date);
