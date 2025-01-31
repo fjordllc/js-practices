@@ -2,23 +2,31 @@
 
 import minimist from "minimist";
 
-function printCalendar(date) {
-  const monthName = date.toLocaleDateString("default", {
+function printCalendar(targetDate) {
+  const monthName = targetDate.toLocaleDateString("default", {
     month: "long",
   });
   const calendarWidth = 20;
-  const calendarHeader = `${monthName} ${date.getFullYear()}`;
+  const calendarHeader = `${monthName} ${targetDate.getFullYear()}`;
   const spacesToCenter = (calendarWidth - calendarHeader.length) / 2;
   console.log(`${" ".repeat(spacesToCenter)}${calendarHeader}`);
 
   const weekHeader = "Su Mo Tu We Th Fr Sa";
   console.log(weekHeader);
 
-  const firstDateOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+  const firstDateOfMonth = new Date(
+    targetDate.getFullYear(),
+    targetDate.getMonth(),
+    1,
+  );
   const spacesBeforeFirstDay = 3 * firstDateOfMonth.getDay();
   process.stdout.write(" ".repeat(spacesBeforeFirstDay));
 
-  const lastDateOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  const lastDateOfMonth = new Date(
+    targetDate.getFullYear(),
+    targetDate.getMonth() + 1,
+    0,
+  );
   for (
     let currentDateInMonth = firstDateOfMonth;
     currentDateInMonth <= lastDateOfMonth;
@@ -41,8 +49,8 @@ function printCalendar(date) {
 }
 
 const argv = minimist(process.argv.slice(2));
-const currentDate = new Date();
-const year = argv.y ?? currentDate.getFullYear();
-const date = argv.m === undefined ? currentDate : new Date(year, argv.m - 1);
+const year = argv.y ?? new Date().getFullYear();
+const targetDate =
+  argv.m === undefined ? new Date() : new Date(year, argv.m - 1);
 
-printCalendar(date);
+printCalendar(targetDate);
