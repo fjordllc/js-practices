@@ -8,8 +8,8 @@ function printCalendar(targetDate) {
   });
   const calendarWidth = 20;
   const calendarHeader = `${monthName} ${targetDate.getFullYear()}`;
-  const spacesToCenter = (calendarWidth - calendarHeader.length) / 2;
-  console.log(`${" ".repeat(spacesToCenter)}${calendarHeader}`);
+  const centerAlignCount = (calendarWidth - calendarHeader.length) / 2;
+  console.log(`${" ".repeat(centerAlignCount)}${calendarHeader}`);
 
   const weekHeader = "Su Mo Tu We Th Fr Sa";
   console.log(weekHeader);
