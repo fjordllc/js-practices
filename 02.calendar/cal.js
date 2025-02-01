@@ -28,7 +28,7 @@ function printCalendar(targetDate) {
     0,
   );
   for (
-    let currentDateInMonth = firstDateOfMonth;
+    let currentDateInMonth = new Date(firstDateOfMonth);
     currentDateInMonth <= lastDateOfMonth;
     currentDateInMonth.setDate(currentDateInMonth.getDate() + 1)
   ) {
