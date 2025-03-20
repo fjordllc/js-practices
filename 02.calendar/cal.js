@@ -18,7 +18,7 @@ function printCalendar(year, month) {
     "December",
   ];
 
-  const monthName = monthNames[month - 1];
+  const monthName = monthNames[month];
   const calendarWidth = 20;
   const calendarHeader = `${monthName} ${year}`;
   const centerAlignCount = (calendarWidth - calendarHeader.length) / 2;
@@ -55,6 +55,6 @@ function printCalendar(year, month) {
 
 const argv = minimist(process.argv.slice(2));
 const year = argv.y ?? new Date().getFullYear();
-const month = argv.m ?? new Date().getMonth();
+const month = argv.m - 1 ?? new Date().getMonth() - 1;
 
 printCalendar(year, month);
