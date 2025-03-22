@@ -33,16 +33,16 @@ function printCalendar(year, month) {
 
   const lastDateOfMonth = new Date(year, month + 1, 0);
   for (
-    let currentDateInMonth = new Date(firstDateOfMonth);
-    currentDateInMonth <= lastDateOfMonth;
-    currentDateInMonth.setDate(currentDateInMonth.getDate() + 1)
+    let currentDateOfMonth = new Date(firstDateOfMonth);
+    currentDateOfMonth <= lastDateOfMonth;
+    currentDateOfMonth.setDate(currentDateOfMonth.getDate() + 1)
   ) {
     const isLastDay =
-      currentDateInMonth.getDate() === lastDateOfMonth.getDate();
-    const isSaturday = currentDateInMonth.getDay() === 6;
+      currentDateOfMonth.getDate() === lastDateOfMonth.getDate();
+    const isSaturday = currentDateOfMonth.getDay() === 6;
 
     process.stdout.write(
-      currentDateInMonth.getDate().toString().padStart(2, " "),
+      currentDateOfMonth.getDate().toString().padStart(2, " "),
     );
 
     if (isSaturday || isLastDay) {
