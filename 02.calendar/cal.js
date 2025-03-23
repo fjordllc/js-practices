@@ -18,7 +18,7 @@ function printCalendar(year, month) {
     "December",
   ];
 
-  const monthName = monthNames[month];
+  const monthName = monthNames[month - 1];
   const calendarWidth = 20;
   const calendarHeader = `${monthName} ${year}`;
   const centerAlignCount = (calendarWidth - calendarHeader.length) / 2;
@@ -27,11 +27,11 @@ function printCalendar(year, month) {
   const weekHeader = "Su Mo Tu We Th Fr Sa";
   console.log(weekHeader);
 
-  const firstDateOfMonth = new Date(year, month, 1);
+  const firstDateOfMonth = new Date(year, month - 1, 1);
   const spacesBeforeFirstDay = 3 * firstDateOfMonth.getDay();
   process.stdout.write(" ".repeat(spacesBeforeFirstDay));
 
-  const lastDateOfMonth = new Date(year, month + 1, 0);
+  const lastDateOfMonth = new Date(year, month, 0);
   for (
     let currentDateOfMonth = new Date(firstDateOfMonth);
     currentDateOfMonth <= lastDateOfMonth;
@@ -55,6 +55,6 @@ function printCalendar(year, month) {
 
 const argv = minimist(process.argv.slice(2));
 const year = argv.y ?? new Date().getFullYear();
-const month = argv.m - 1 ?? new Date().getMonth() - 1;
+const month = argv.m ?? new Date().getMonth() + 1;
 
 printCalendar(year, month);
