@@ -3,22 +3,9 @@
 import minimist from "minimist";
 
 function printCalendar(year, month) {
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  const monthName = monthNames[month - 1];
+  const monthName = new Date(year, month - 1, 1).toLocaleDateString("en-US", {
+    month: "long",
+  });
   const calendarWidth = 20;
   const calendarHeader = `${monthName} ${year}`;
   const centerAlignCount = (calendarWidth - calendarHeader.length) / 2;
