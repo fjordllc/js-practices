@@ -3,7 +3,8 @@
 import minimist from "minimist";
 
 function printCalendar(year, month) {
-  const monthName = new Date(year, month - 1, 1).toLocaleDateString("en-US", {
+  const firstDateOfMonth = new Date(year, month - 1, 1);
+  const monthName = firstDateOfMonth.toLocaleDateString("en-US", {
     month: "long",
   });
   const calendarWidth = 20;
@@ -14,7 +15,6 @@ function printCalendar(year, month) {
   const weekHeader = "Su Mo Tu We Th Fr Sa";
   console.log(weekHeader);
 
-  const firstDateOfMonth = new Date(year, month - 1, 1);
   const spacesBeforeFirstDay = 3 * firstDateOfMonth.getDay();
   process.stdout.write(" ".repeat(spacesBeforeFirstDay));
 
