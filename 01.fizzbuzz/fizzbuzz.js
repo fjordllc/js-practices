@@ -12,6 +12,6 @@ while (count < 20) {
         console.log("Buzz");
     }
     else {
-        console.log(count);
+        console.log(String(count));
     }
 }
