@@ -9,5 +9,5 @@ for (let number = 1; number <= 20; number++) {
   } else {
     output = number;
   }
-    console.log(JSON.stringify(output));
+  console.log(JSON.stringify(output));
 }
