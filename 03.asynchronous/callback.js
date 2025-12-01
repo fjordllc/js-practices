@@ -5,21 +5,16 @@ let db = new sqlite3.Database(":memory:");
 
 db.run(
   "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
-  function () {
+  () => {
     db.run("INSERT INTO books (title) VALUES ('report')", function () {
-      db.get(
-        "SELECT id FROM books WHERE title = 'report'",
-        function (error, id) {
-          console.log(id);
-          db.get("SELECT * FROM books", function (error, content) {
-            if (error) {
-              console.error(error);
-            }
-            console.log(content);
-          });
-          db.close();
-        },
-      );
+      console.log(this.lastID);
+      db.get("SELECT * FROM books", (error, content) => {
+        if (error) {
+          console.error(error);
+        }
+        console.log(content);
+      });
+      db.close();
     });
   },
 );
@@ -29,24 +24,22 @@ db = new sqlite3.Database(":memory:");
 db.run(
   "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
   function () {
-    db.run("INSERT INTO books (title) VALUES (NULL)", function (error) {
+    db.run("INSERT INTO books (title) VALUES (NULL)", (error) => {
       if (error) {
         console.error(error);
       }
-      db.run("INSERT INTO books (title) VALUES ('report')", function () {
-        db.get("SELECT id FROM books WHERE title = 'report'", function () {
-          db.get(
-            "SELECT * FROM book WHERE title = 'report'",
-            function (error, content) {
-              if (error) {
-                console.error(error);
-              } else {
-                console.log(content);
-              }
-            },
-          );
-          db.close();
-        });
+      db.run("INSERT INTO books (title) VALUES ('report')", () => {
+        db.get(
+          "SELECT * FROM book WHERE title = 'report'",
+          (error, content) => {
+            if (error) {
+              console.error(error);
+            } else {
+              console.log(content);
+            }
+          },
+        );
+        db.close();
       });
     });
   },
