@@ -25,11 +25,11 @@ async function successAsync(db) {
       console.error(error);
     }
     try {
-      const content = await dbGetPromise(
+      const book = await dbGetPromise(
         "SELECT * FROM books WHERE title = 'report'",
         db,
       );
-      console.log(content);
+      console.log(book);
     } catch (error) {
       console.error(error);
     }
@@ -56,11 +56,11 @@ async function failureAsync(db) {
       console.error(error);
     }
     try {
-      const content = await dbGetPromise(
+      const book = await dbGetPromise(
         "SELECT * FROM book WHERE title = 'report'",
         db,
       );
-      console.log(content);
+      console.log(book);
     } catch (error) {
       console.error(error);
     }
