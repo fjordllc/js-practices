@@ -22,7 +22,9 @@ async function successAsync(db) {
       );
       console.log(book.lastID);
     } catch (error) {
-      console.error(error);
+      if (error.code === "SQLITE_CONSTRAINT") {
+        console.error(error);
+      }
     }
     try {
       const book = await dbGetPromise(
@@ -31,7 +33,9 @@ async function successAsync(db) {
       );
       console.log(book);
     } catch (error) {
-      console.error(error);
+      if (error.code === "SQLITE_ERROR") {
+        console.error(error);
+      }
     }
   } catch (error) {
     console.error(error);
@@ -53,7 +57,9 @@ async function failureAsync(db) {
       );
       console.log(book.lastID);
     } catch (error) {
-      console.error(error);
+      if (error.code === "SQLITE_CONSTRAINT") {
+        console.error(error);
+      }
     }
     try {
       const book = await dbGetPromise(
@@ -62,7 +68,9 @@ async function failureAsync(db) {
       );
       console.log(book);
     } catch (error) {
-      console.error(error);
+      if (error.code === "SQLITE_ERROR") {
+        console.error(error);
+      }
     }
   } catch (error) {
     console.error(error);

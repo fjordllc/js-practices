@@ -16,7 +16,9 @@ dbRunPromise(
     console.log(id.lastID);
   })
   .catch((error) => {
-    console.error(error);
+    if (error.code === "SQLITE_CONSTRAINT") {
+      console.error(error);
+    }
   })
   .then(() => {
     return dbGetPromise("SELECT * FROM books WHERE title = 'report'", db);
@@ -25,7 +27,9 @@ dbRunPromise(
     console.log(book);
   })
   .catch((error) => {
-    console.error(error);
+    if (error.code === "SQLITE_ERROR") {
+      console.error(error);
+    }
   })
   .finally(() => {
     return dbClosePromise(db)
@@ -47,7 +51,9 @@ dbRunPromise(
     console.log(id.lastID);
   })
   .catch((error) => {
-    console.error(error);
+    if (error.code === "SQLITE_CONSTRAINT") {
+      console.error(error);
+    }
   })
   .then(() => {
     return dbGetPromise("SELECT * FROM book WHERE title = 'report'", db);
@@ -56,7 +62,9 @@ dbRunPromise(
     console.log(book);
   })
   .catch((error) => {
-    console.error(error);
+    if (error.code === "SQLITE_ERROR") {
+      console.error(error);
+    }
   })
   .finally(() => {
     return dbClosePromise(db)

@@ -22,14 +22,14 @@ db.run(
   "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
   function () {
     db.run("INSERT INTO books (title) VALUES (NULL)", (error) => {
-      if (error) {
+      if (error.code === "SQLITE_CONSTRAINT") {
         console.error(error);
       }
       db.run("INSERT INTO books (title) VALUES ('report')", () => {
         db.get(
           "SELECT * FROM book WHERE title = 'report'",
           (error, content) => {
-            if (error) {
+            if (error.code === "SQLITE_ERROR") {
               console.error(error);
             } else {
               console.log(content);
