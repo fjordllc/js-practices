@@ -19,3 +19,14 @@ export function dbGetPromise(sql, db) {
     });
   });
 }
+
+export function dbClosePromise(db) {
+  return new Promise((resolve, reject) => {
+    db.close((err) => {
+      if (err) {
+        return reject(err);
+      }
+      resolve();
+    });
+  });
+}

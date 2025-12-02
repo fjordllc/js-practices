@@ -1,6 +1,6 @@
 import sqlite3 from "sqlite3";
 import timers from "timers/promises";
-import { dbRunPromise } from "./dbFunction.js";
+import { dbClosePromise, dbRunPromise } from "./dbFunction.js";
 import { dbGetPromise } from "./dbFunction.js";
 
 let db = new sqlite3.Database(":memory:");
@@ -12,11 +12,8 @@ dbRunPromise(
   .then(() => {
     return dbRunPromise("INSERT INTO books (title) VALUES ('report')", db);
   })
-  .then(() => {
-    return dbGetPromise("SELECT id FROM books WHERE title = 'report'", db);
-  })
   .then((id) => {
-    console.log(id);
+    console.log(id.lastID);
   })
   .catch((error) => {
     console.error(error);
@@ -24,14 +21,16 @@ dbRunPromise(
   .then(() => {
     return dbGetPromise("SELECT * FROM books WHERE title = 'report'", db);
   })
-  .then((content) => {
-    console.log(content);
+  .then((book) => {
+    console.log(book);
   })
   .catch((error) => {
     console.error(error);
   })
   .finally(() => {
-    db.close();
+    return dbClosePromise(db)
+      .then(() => {})
+      .catch(() => {});
   });
 
 await timers.setTimeout(100);
@@ -44,11 +43,8 @@ dbRunPromise(
   .then(() => {
     return dbRunPromise("INSERT INTO books (title) VALUES (NULL)", db);
   })
-  .then(() => {
-    return dbGetPromise("SELECT id FROM books WHERE title = 'report'", db);
-  })
   .then((id) => {
-    console.log(id);
+    console.log(id.lastID);
   })
   .catch((error) => {
     console.error(error);
@@ -56,12 +52,14 @@ dbRunPromise(
   .then(() => {
     return dbGetPromise("SELECT * FROM book WHERE title = 'report'", db);
   })
-  .then((content) => {
-    console.log(content);
+  .then((book) => {
+    console.log(book);
   })
   .catch((error) => {
     console.error(error);
   })
   .finally(() => {
-    db.close();
+    return dbClosePromise(db)
+      .then(() => {})
+      .catch(() => {});
   });
