@@ -9,9 +9,6 @@ db.run(
     db.run("INSERT INTO books (title) VALUES ('report')", function () {
       console.log(this.lastID);
       db.get("SELECT * FROM books", (error, book) => {
-        if (error) {
-          console.error(error);
-        }
         console.log(book);
       });
       db.close();
