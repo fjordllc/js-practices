@@ -24,6 +24,8 @@ async function successAsync(db) {
     } catch (error) {
       if (error.code === "SQLITE_CONSTRAINT") {
         console.error(error);
+      } else {
+        throw error;
       }
     }
     try {
@@ -35,6 +37,8 @@ async function successAsync(db) {
     } catch (error) {
       if (error.code === "SQLITE_ERROR") {
         console.error(error);
+      } else {
+        throw error;
       }
     }
   } catch (error) {
@@ -59,6 +63,8 @@ async function failureAsync(db) {
     } catch (error) {
       if (error.code === "SQLITE_CONSTRAINT") {
         console.error(error);
+      } else {
+        throw error;
       }
     }
     try {
@@ -70,6 +76,8 @@ async function failureAsync(db) {
     } catch (error) {
       if (error.code === "SQLITE_ERROR") {
         console.error(error);
+      } else {
+        throw error;
       }
     }
   } catch (error) {
