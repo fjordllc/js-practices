@@ -1,23 +1,26 @@
 import sqlite3 from "sqlite3";
-import timers from "timers/promises";
 import { dbRunPromise } from "./dbFunction.js";
 import { dbGetPromise } from "./dbFunction.js";
 
-let db = new sqlite3.Database(":memory:");
+async function main() {
+  let db = new sqlite3.Database(":memory:");
+  await successAsync(db);
+  db = new sqlite3.Database(":memory:");
+  failureAsync(db);
+}
 
-async function successAsync() {
+async function successAsync(db) {
   try {
     await dbRunPromise(
       "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
       db,
     );
     try {
-      await dbRunPromise("INSERT INTO books (title) VALUES ('report')", db);
-      const id = await dbGetPromise(
-        "SELECT id FROM books WHERE title = 'report'",
+      let book = await dbRunPromise(
+        "INSERT INTO books (title) VALUES ('report')",
         db,
       );
-      console.log(id);
+      console.log(book.lastID);
     } catch (error) {
       console.error(error);
     }
@@ -36,23 +39,19 @@ async function successAsync() {
     db.close();
   }
 }
-successAsync();
 
-await timers.setTimeout(100);
-db = new sqlite3.Database(":memory:");
-async function failureAsync() {
+async function failureAsync(db) {
   try {
     await dbRunPromise(
       "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
       db,
     );
     try {
-      await dbRunPromise("INSERT INTO books (title) VALUES (NULL)", db);
-      const id = await dbGetPromise(
-        "SELECT id FROM books WHERE title = 'report'",
+      let book = await dbRunPromise(
+        "INSERT INTO books (title) VALUES (NULL)",
         db,
       );
-      console.log(id);
+      console.log(book.lastID);
     } catch (error) {
       console.error(error);
     }
@@ -72,4 +71,4 @@ async function failureAsync() {
   }
 }
 
-failureAsync();
+main();
