@@ -18,6 +18,7 @@ db.run(
 
 await timers.setTimeout(100);
 db = new sqlite3.Database(":memory:");
+
 db.run(
   "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
   function () {
