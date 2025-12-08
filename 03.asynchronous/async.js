@@ -1,6 +1,5 @@
 import sqlite3 from "sqlite3";
-import { dbRunPromise } from "./dbFunction.js";
-import { dbGetPromise } from "./dbFunction.js";
+import { dbRunPromise, dbGetPromise } from "./dbFunction.js";
 
 async function main() {
   let db = new sqlite3.Database(":memory:");

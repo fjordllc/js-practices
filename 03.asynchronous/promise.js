@@ -1,7 +1,6 @@
-import sqlite3 from "sqlite3";
 import timers from "timers/promises";
-import { dbClosePromise, dbRunPromise } from "./dbFunction.js";
-import { dbGetPromise } from "./dbFunction.js";
+import sqlite3 from "sqlite3";
+import { dbRunPromise, dbGetPromise, dbClosePromise } from "./dbFunction.js";
 
 let db = new sqlite3.Database(":memory:");
 
