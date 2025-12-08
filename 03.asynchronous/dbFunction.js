@@ -11,11 +11,11 @@ export function dbRunPromise(db, sql, params) {
 
 export function dbGetPromise(db, sql, params) {
   return new Promise((resolve, reject) => {
-    db.get(sql, params, function (err, param) {
+    db.get(sql, params, function (err, result) {
       if (err) {
         reject(err);
       }
-      resolve(param);
+      resolve(result);
     });
   });
 }
