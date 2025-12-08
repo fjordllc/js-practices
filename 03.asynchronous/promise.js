@@ -10,7 +10,10 @@ dbRunPromise(
   db,
 )
   .then(() => {
-    return dbRunPromise("INSERT INTO books (title) VALUES ('report')", db);
+    return dbRunPromise(
+      "INSERT INTO books (title) VALUES ('Railsの教科書')",
+      db,
+    );
   })
   .then((id) => {
     console.log(id.lastID);
@@ -23,7 +26,10 @@ dbRunPromise(
     }
   })
   .then(() => {
-    return dbGetPromise("SELECT * FROM books WHERE title = 'report'", db);
+    return dbGetPromise(
+      "SELECT * FROM books WHERE title = 'Railsの教科書'",
+      db,
+    );
   })
   .then((book) => {
     console.log(book);
@@ -62,7 +68,7 @@ dbRunPromise(
     }
   })
   .then(() => {
-    return dbGetPromise("SELECT * FROM book WHERE title = 'report'", db);
+    return dbGetPromise("SELECT * FROM book WHERE title = 'Railsの教科書'", db);
   })
   .then((book) => {
     console.log(book);

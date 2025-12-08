@@ -6,11 +6,14 @@ let db = new sqlite3.Database(":memory:");
 db.run(
   "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
   () => {
-    db.run("INSERT INTO books (title) VALUES ('report')", function () {
+    db.run("INSERT INTO books (title) VALUES ('Railsの教科書')", function () {
       console.log(this.lastID);
-      db.get("SELECT * FROM books", (error, book) => {
-        console.log(book);
-      });
+      db.get(
+        "SELECT * FROM books WHERE title = 'Railsの教科書'",
+        (error, book) => {
+          console.log(book);
+        },
+      );
       db.close();
     });
   },
@@ -26,7 +29,7 @@ db.run(
       if (error.code === "SQLITE_CONSTRAINT") {
         console.error(error.message);
       }
-      db.run("INSERT INTO books (title) VALUES ('report')", () => {
+      db.run("INSERT INTO books (title) VALUES ('Railsの教科書')", () => {
         db.get(
           "SELECT * FROM book WHERE title = 'report'",
           (error, content) => {

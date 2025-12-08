@@ -17,7 +17,7 @@ async function successAsync(db) {
     );
     try {
       let book = await dbRunPromise(
-        "INSERT INTO books (title) VALUES ('report')",
+        "INSERT INTO books (title) VALUES ('Railsの教科書')",
         db,
       );
       console.log(book.lastID);
@@ -30,7 +30,7 @@ async function successAsync(db) {
     }
     try {
       const book = await dbGetPromise(
-        "SELECT * FROM books WHERE title = 'report'",
+        "SELECT * FROM books WHERE title = 'Railsの教科書'",
         db,
       );
       console.log(book);
@@ -69,7 +69,7 @@ async function failureAsync(db) {
     }
     try {
       const book = await dbGetPromise(
-        "SELECT * FROM book WHERE title = 'report'",
+        "SELECT * FROM book WHERE title = 'Railsの教科書'",
         db,
       );
       console.log(book);
