@@ -23,7 +23,7 @@ async function successAsync(db) {
       console.log(book.lastID);
     } catch (error) {
       if (error.code === "SQLITE_CONSTRAINT") {
-        console.error(error);
+        console.error(error.message);
       } else {
         throw error;
       }
@@ -36,13 +36,13 @@ async function successAsync(db) {
       console.log(book);
     } catch (error) {
       if (error.code === "SQLITE_ERROR") {
-        console.error(error);
+        console.error(error.message);
       } else {
         throw error;
       }
     }
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
   } finally {
     db.close();
   }
@@ -62,7 +62,7 @@ async function failureAsync(db) {
       console.log(book.lastID);
     } catch (error) {
       if (error.code === "SQLITE_CONSTRAINT") {
-        console.error(error);
+        console.error(error.message);
       } else {
         throw error;
       }
@@ -75,13 +75,13 @@ async function failureAsync(db) {
       console.log(book);
     } catch (error) {
       if (error.code === "SQLITE_ERROR") {
-        console.error(error);
+        console.error(error.message);
       } else {
         throw error;
       }
     }
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
   } finally {
     db.close();
   }

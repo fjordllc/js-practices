@@ -17,7 +17,7 @@ dbRunPromise(
   })
   .catch((error) => {
     if (error.code === "SQLITE_CONSTRAINT") {
-      console.error(error);
+      console.error(error.message);
     } else {
       throw error;
     }
@@ -30,7 +30,7 @@ dbRunPromise(
   })
   .catch((error) => {
     if (error.code === "SQLITE_ERROR") {
-      console.error(error);
+      console.error(error.message);
     } else {
       throw error;
     }
@@ -56,7 +56,7 @@ dbRunPromise(
   })
   .catch((error) => {
     if (error.code === "SQLITE_CONSTRAINT") {
-      console.error(error);
+      console.error(error.message);
     } else {
       throw error;
     }
@@ -69,7 +69,7 @@ dbRunPromise(
   })
   .catch((error) => {
     if (error.code === "SQLITE_ERROR") {
-      console.error(error);
+      console.error(error.message);
     } else {
       throw error;
     }

@@ -24,16 +24,16 @@ db.run(
   function () {
     db.run("INSERT INTO books (title) VALUES (NULL)", (error) => {
       if (error.code === "SQLITE_CONSTRAINT") {
-        console.error(error);
+        console.error(error.message);
       }
       db.run("INSERT INTO books (title) VALUES ('report')", () => {
         db.get(
           "SELECT * FROM book WHERE title = 'report'",
           (error, content) => {
             if (error.code === "SQLITE_ERROR") {
-              console.error(error);
+              console.error(error.message);
             } else {
-              console.log(content);
+              console.log(content.message);
             }
           },
         );
