@@ -12,13 +12,14 @@ async function main() {
 async function successAsync(db) {
   try {
     await dbRunPromise(
-      "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
       db,
+      "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
     );
     try {
       let book = await dbRunPromise(
-        "INSERT INTO books (title) VALUES ('Railsの教科書')",
         db,
+        "INSERT INTO books (title) VALUES (?)",
+        "Railsの教科書",
       );
       console.log(book.lastID);
     } catch (error) {
@@ -30,8 +31,9 @@ async function successAsync(db) {
     }
     try {
       const book = await dbGetPromise(
-        "SELECT * FROM books WHERE title = 'Railsの教科書'",
         db,
+        "SELECT * FROM books WHERE title = ?",
+        "Railsの教科書",
       );
       console.log(book);
     } catch (error) {
@@ -51,13 +53,14 @@ async function successAsync(db) {
 async function failureAsync(db) {
   try {
     await dbRunPromise(
-      "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
       db,
+      "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
     );
     try {
       let book = await dbRunPromise(
-        "INSERT INTO books (title) VALUES (NULL)",
         db,
+        "INSERT INTO books (title) VALUES (?)",
+        null,
       );
       console.log(book.lastID);
     } catch (error) {
@@ -69,8 +72,9 @@ async function failureAsync(db) {
     }
     try {
       const book = await dbGetPromise(
-        "SELECT * FROM book WHERE title = 'Railsの教科書'",
         db,
+        "SELECT * FROM book WHERE title = ?",
+        "Railsの教科書",
       );
       console.log(book);
     } catch (error) {

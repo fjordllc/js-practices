@@ -1,6 +1,6 @@
-export function dbRunPromise(sql, db) {
+export function dbRunPromise(db, sql, params) {
   return new Promise((resolve, reject) => {
-    db.run(sql, function (err) {
+    db.run(sql, params, function (err) {
       if (err) {
         return reject(err);
       }
@@ -9,9 +9,9 @@ export function dbRunPromise(sql, db) {
   });
 }
 
-export function dbGetPromise(sql, db) {
+export function dbGetPromise(db, sql, params) {
   return new Promise((resolve, reject) => {
-    db.get(sql, function (err, param) {
+    db.get(sql, params, function (err, param) {
       if (err) {
         return reject(err);
       }

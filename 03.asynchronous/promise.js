@@ -6,13 +6,14 @@ import { dbGetPromise } from "./dbFunction.js";
 let db = new sqlite3.Database(":memory:");
 
 dbRunPromise(
-  "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
   db,
+  "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
 )
   .then(() => {
     return dbRunPromise(
-      "INSERT INTO books (title) VALUES ('Railsの教科書')",
       db,
+      "INSERT INTO books (title) VALUES (?)",
+      "Railsの教科書",
     );
   })
   .then((id) => {
@@ -27,8 +28,9 @@ dbRunPromise(
   })
   .then(() => {
     return dbGetPromise(
-      "SELECT * FROM books WHERE title = 'Railsの教科書'",
       db,
+      "SELECT * FROM books WHERE title = ?",
+      "Railsの教科書",
     );
   })
   .then((book) => {
@@ -51,11 +53,11 @@ await timers.setTimeout(100);
 db = new sqlite3.Database(":memory:");
 
 dbRunPromise(
-  "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
   db,
+  "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
 )
   .then(() => {
-    return dbRunPromise("INSERT INTO books (title) VALUES (NULL)", db);
+    return dbRunPromise(db, "INSERT INTO books (title) VALUES (?)", null);
   })
   .then((id) => {
     console.log(id.lastID);
@@ -68,7 +70,11 @@ dbRunPromise(
     }
   })
   .then(() => {
-    return dbGetPromise("SELECT * FROM book WHERE title = 'Railsの教科書'", db);
+    return dbGetPromise(
+      db,
+      "SELECT * FROM book WHERE title = ?",
+      "Railsの教科書",
+    );
   })
   .then((book) => {
     console.log(book);
