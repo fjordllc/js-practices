@@ -8,13 +8,9 @@ dbRunPromise(
   db,
   "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
 )
-  .then(() => {
-    return dbRunPromise(
-      db,
-      "INSERT INTO books (title) VALUES (?)",
-      "Railsの教科書",
-    );
-  })
+  .then(() =>
+    dbRunPromise(db, "INSERT INTO books (title) VALUES (?)", "Railsの教科書"),
+  )
   .then((id) => {
     console.log(id.lastID);
   })
@@ -25,13 +21,9 @@ dbRunPromise(
       throw error;
     }
   })
-  .then(() => {
-    return dbGetPromise(
-      db,
-      "SELECT * FROM books WHERE title = ?",
-      "Railsの教科書",
-    );
-  })
+  .then(() =>
+    dbGetPromise(db, "SELECT * FROM books WHERE title = ?", "Railsの教科書"),
+  )
   .then((book) => {
     console.log(book);
   })
@@ -42,11 +34,11 @@ dbRunPromise(
       throw error;
     }
   })
-  .finally(() => {
-    return dbClosePromise(db)
+  .finally(() =>
+    dbClosePromise(db)
       .then(() => {})
-      .catch(() => {});
-  });
+      .catch(() => {}),
+  );
 
 await timers.setTimeout(100);
 db = new sqlite3.Database(":memory:");
@@ -55,9 +47,7 @@ dbRunPromise(
   db,
   "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
 )
-  .then(() => {
-    return dbRunPromise(db, "INSERT INTO books (title) VALUES (?)", null);
-  })
+  .then(() => dbRunPromise(db, "INSERT INTO books (title) VALUES (?)", null))
   .then((id) => {
     console.log(id.lastID);
   })
@@ -68,13 +58,9 @@ dbRunPromise(
       throw error;
     }
   })
-  .then(() => {
-    return dbGetPromise(
-      db,
-      "SELECT * FROM book WHERE title = ?",
-      "Railsの教科書",
-    );
-  })
+  .then(() =>
+    dbGetPromise(db, "SELECT * FROM book WHERE title = ?", "Railsの教科書"),
+  )
   .then((book) => {
     console.log(book);
   })
@@ -85,8 +71,8 @@ dbRunPromise(
       throw error;
     }
   })
-  .finally(() => {
-    return dbClosePromise(db)
+  .finally(() =>
+    dbClosePromise(db)
       .then(() => {})
-      .catch(() => {});
-  });
+      .catch(() => {}),
+  );
