@@ -1,0 +1,17 @@
+//1-20の数をプリントする　loop
+for (let num = 1; num <= 20; num++) {
+  //３と5の倍数の時はFIzzBuzzと表示
+  if (num % 3 === 0 && num % 5 === 0) {
+    console.log('FizzBuzz');
+  }
+  //3の倍数の時はFizzと表示
+  else if (num % 3 === 0) {
+    console.log('Fizz');
+  }
+  //5の倍数の時はBuzzと表示
+  else if (num % 5 === 0) {
+    console.log('Buzz');
+  }
+  //それ以外はそのまま表示
+  else console.log(`${num}`);
+}
